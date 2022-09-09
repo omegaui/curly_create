@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "943606097185",
+    "project_id": "curly-create",
+    "storage_bucket": "curly-create.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943606097185:android:a2ae239c2c3562f7bc8a60",
+        "android_client_info": {
+          "package_name": "com.omegaui.curly_create"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943606097185-e4qpk1gljb4r6rtsm0lfgltsiofm469c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.omegaui.curly_create",
+            "certificate_hash": "78e04f29781287ac30e6cafccb80693cccb7533d"
+          }
+        },
+        {
+          "client_id": "943606097185-9boeqboeppf500ju3r3eavvdtf4fin1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjMAEIKB599kCyQci6zUPTBn8SjIulBGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943606097185-9boeqboeppf500ju3r3eavvdtf4fin1s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

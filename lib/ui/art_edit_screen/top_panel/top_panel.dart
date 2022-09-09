@@ -1,0 +1,57 @@
+
+import 'package:curly_create/io/app_data_manager.dart';
+import 'package:flutter/material.dart';
+
+import '../../../io/resource_manager.dart';
+import '../../../widgets/logo.dart';
+
+class TopPanel extends StatelessWidget{
+  const TopPanel({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.indigoAccent.withOpacity(0.25),
+              blurRadius: 4,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Row(
+                children: const [
+                  SizedBox(width: 15),
+                  Image(
+                    image: artEditViewIcon,
+                    width: 48,
+                    height: 48,
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    "Art Edit",
+                    style: TextStyle(
+                      fontFamily: "Itim",
+                      fontSize: 28,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Logo(),
+          ],
+        ),
+      ),
+    );
+  }
+
+}
+
