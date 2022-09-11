@@ -4,6 +4,7 @@ import 'package:curly_create/ui/art_view_screen/top_panel/top_panel.dart';
 import 'package:curly_create/widgets/art_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../io/app_data_manager.dart';
 import '../../io/art_data.dart';
@@ -14,6 +15,10 @@ class ArtView extends StatelessWidget {
   final ArtData artData;
 
   const ArtView({Key? key, required this.artData}) : super(key: key);
+
+  Future<void> share() async {
+    await Share.shareFiles([artData.path], text: "Share ${artData.title} to");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +148,9 @@ class ArtView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: Material(
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                share();
+                              },
                               icon: const Image(
                                 image: instagram,
                               ),
@@ -154,7 +161,9 @@ class ArtView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: Material(
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                share();
+                              },
                               icon: const Image(
                                 image: whatsapp,
                               ),
