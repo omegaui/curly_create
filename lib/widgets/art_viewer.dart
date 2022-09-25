@@ -35,8 +35,8 @@ class ArtViewer extends StatelessWidget {
                         ))));
       },
       child: Container(
-        width: compactMode ? 209.45 / 1.3 : 209.45,
-        height: compactMode ? 279.45 / 1.3 : 279.45,
+        width: compactMode ? 209.45 / 1.9 : 209.45,
+        height: compactMode ? 279.45 / 1.9 : 279.45,
         decoration: BoxDecoration(
           color: artData.getTileColor(),
           borderRadius: BorderRadius.circular(15),

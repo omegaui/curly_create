@@ -1,17 +1,16 @@
-
 import 'dart:io';
+import 'dart:math';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/art_data.dart';
-import 'package:curly_create/io/authentication.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../io/backups.dart';
 
-class DownloadCard extends StatefulWidget{
-
+class DownloadCard extends StatefulWidget {
   final Reference reference;
 
   const DownloadCard({Key? key, required this.reference}) : super(key: key);
@@ -21,13 +20,12 @@ class DownloadCard extends StatefulWidget{
 }
 
 class _DownloadCardState extends State<DownloadCard> {
-
   bool downloadActive = false;
   bool downloadFailed = false;
 
-  bool isArtPresentOffline(Map<String, String>? metadata){
-    for(var artData in arts){
-      if(artData.title == metadata?['title']) {
+  bool isArtPresentOffline(Map<String, String>? metadata) {
+    for (var artData in arts) {
+      if (artData.title == metadata?['title']) {
         return true;
       }
     }
@@ -39,100 +37,160 @@ class _DownloadCardState extends State<DownloadCard> {
     const appDocDir = '/storage/emulated/0/Download';
     final filePath = "$appDocDir/${metadata?['title']}.jpeg";
     final file = File(filePath);
-
-    final downloadTask = ref.writeToFile(file);
-    downloadTask.snapshotEvents.listen((taskSnapshot) {
-      switch (taskSnapshot.state) {
-        case TaskState.running:
-          downloadActive = true;
-          break;
-        case TaskState.paused:
-          downloadActive = false;
-          break;
-        case TaskState.success:
-          arts.add(ArtData(metadata?['title'] as String, int.parse(metadata?['colorTileIndex'] as String), filePath, metadata?['description'] as String, metadata?['note'] as String));
-          saveAppData();
-          showInSnackBar(context, 'Downloaded ${metadata?['title']}.');
-          downloadActive = false;
-          break;
-        case TaskState.canceled:
-          downloadActive = false;
-          break;
-        case TaskState.error:
-          downloadActive = false;
-          downloadFailed = true;
-          break;
-      }
+    if (await file.exists()) {
+      arts.add(ArtData(
+          metadata?['title'] as String,
+          int.parse(metadata?['colorTileIndex'] as String),
+          filePath,
+          metadata?['description'] as String,
+          metadata?['note'] as String));
+      saveAppData();
+      showInSnackBar(context, 'Added ${metadata?['title']}.');
+      downloadActive = false;
       rebuild();
-    });
+    } else {
+      final downloadTask = ref.writeToFile(file);
+      downloadTask.snapshotEvents.listen((taskSnapshot) {
+        switch (taskSnapshot.state) {
+          case TaskState.running:
+            downloadActive = true;
+            break;
+          case TaskState.paused:
+            downloadActive = false;
+            break;
+          case TaskState.success:
+            arts.add(ArtData(
+                metadata?['title'] as String,
+                int.parse(metadata?['colorTileIndex'] as String),
+                filePath,
+                metadata?['description'] as String,
+                metadata?['note'] as String));
+            saveAppData();
+            showInSnackBar(context, 'Downloaded ${metadata?['title']}.');
+            downloadActive = false;
+            break;
+          case TaskState.canceled:
+            downloadActive = false;
+            break;
+          case TaskState.error:
+            downloadActive = false;
+            downloadFailed = true;
+            break;
+        }
+        rebuild();
+      });
+    }
   }
 
   void showInSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(fontFamily: 'Itim', color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        padding: const EdgeInsets.all(20)));
+      content: Row(
+        children: [
+          Lottie.asset('assets/95088-success.json', width: 50),
+          Text(
+            message,
+            style: TextStyle(fontFamily: 'Itim', color: Colors.grey.shade900),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      padding: const EdgeInsets.all(20),
+      duration: const Duration(milliseconds: 800),
+    ));
   }
 
-  void rebuild(){
+  void rebuild() {
     setState(() {});
+  }
+
+  String getRandomArtTrailingLottie(){
+    int x = Random().nextInt(3);
+    if(x == 0){
+      return "87856-color-blast.json";
+    }
+    else if(x == 1){
+      return "87422-color-wheel.json";
+    }
+    return "70143-gold-star.json";
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: Offset(0, 2)
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FutureBuilder(
             future: widget.reference.getMetadata(),
             builder: (content, snapShot) {
-              if(downloadFailed){
+              if (downloadFailed) {
                 return const Icon(
                   Icons.back_hand_outlined,
                   color: Colors.red,
                 );
-              }
-              else if(snapShot.connectionState == ConnectionState.done) {
+              } else if (snapShot.connectionState == ConnectionState.done) {
                 FullMetadata metadata = snapShot.data as FullMetadata;
                 bool downloaded = isArtPresentOffline(metadata.customMetadata);
                 return Row(
                   children: [
-                    Text(
-                      metadata.customMetadata?['title'] as String,
-                      style: TextStyle(
-                        fontFamily: "Itim",
-                        color: Colors.grey.shade800,
+                    if(downloadActive)
+                      Lottie.asset('assets/7572-download.json'),
+                    if(!downloadActive)
+                      Lottie.asset('assets/${getRandomArtTrailingLottie()}'),
+                    if(downloadActive)
+                      AnimatedTextKit(
+                        animatedTexts: [
+                          ColorizeAnimatedText(
+                            "downloading ${(snapShot.data as FullMetadata).customMetadata?['title']}",
+                            textStyle:
+                            const TextStyle(fontFamily: 'Itim', fontSize: 14, color: Colors.blue),
+                            colors: [
+                              Colors.blue.shade700,
+                              Colors.blue.shade300,
+                              Colors.blue.shade900
+                            ],
+                          ),
+                        ],
+                        isRepeatingAnimation: true,
                       ),
-                    ),
+                    if(!downloadActive)
+                      Text(
+                        metadata.customMetadata?['title'] as String,
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                          color: Colors.grey.shade800,
+                        ),
+                      ),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Visibility(
                             visible: downloadActive,
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Icon(
-                                Icons.timelapse_sharp,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Lottie.asset('assets/82387-download.json'),
                             ),
                           ),
                           Visibility(
                             visible: downloaded,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
                               child: Icon(
                                 Icons.done,
                                 color: Colors.blue.shade700,
@@ -143,9 +201,9 @@ class _DownloadCardState extends State<DownloadCard> {
                           Visibility(
                             visible: !downloaded && !downloadActive,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(60),
                               child: Material(
-                                color: Colors.greenAccent.withOpacity(0.25),
+                                color: Colors.pinkAccent.withOpacity(0.2),
                                 child: IconButton(
                                   onPressed: () {
                                     startDownload(metadata.customMetadata);
@@ -153,9 +211,10 @@ class _DownloadCardState extends State<DownloadCard> {
                                   tooltip: "Click to start download",
                                   icon: const Icon(
                                     Icons.file_download_rounded,
-                                    color: Colors.green,
+                                    color: Colors.pink,
                                   ),
                                   splashRadius: 25,
+                                  iconSize: 20,
                                 ),
                               ),
                             ),
@@ -166,14 +225,32 @@ class _DownloadCardState extends State<DownloadCard> {
                   ],
                 );
               }
+              //"downloading ${(snapShot.data as FullMetadata).customMetadata?['title']}"
               return Row(
                 children: [
-                  Text(
-                    downloadActive ? "downloading data ..." : "pulling data ...",
-                    style: TextStyle(
-                      fontFamily: "Itim",
-                      color: Colors.grey.shade800,
-                    ),
+                  Lottie.asset('assets/7572-download.json'),
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      ColorizeAnimatedText(
+                        downloadActive
+                            ? "downloading ${(snapShot.data as FullMetadata).customMetadata?['title']}"
+                            : "fetching metadata",
+                        textStyle:
+                            const TextStyle(fontFamily: 'Itim', fontSize: 14),
+                        colors: downloadActive
+                            ? [
+                                Colors.blue.shade700,
+                                Colors.blue.shade300,
+                                Colors.blue.shade900
+                              ]
+                            : [
+                                Colors.grey.shade700,
+                                Colors.grey.shade300,
+                                Colors.grey.shade900
+                              ],
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
                   ),
                 ],
               );
@@ -184,4 +261,3 @@ class _DownloadCardState extends State<DownloadCard> {
     );
   }
 }
-

@@ -25,15 +25,15 @@ class _ArtCardState extends State<ArtCard> {
         Navigator.push(context, MaterialPageRoute(builder: (builder) => ArtView(artData: widget.artData)));
       },
       child: Container(
-        width: MediaQuery.of(context).size.width/2 - 20,
-        height: 285,
+        width: (MediaQuery.of(context).size.width/2 - 20),
+        height: 220,
         decoration: BoxDecoration(
           color: widget.artData.getTileColor(),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.25),
-              blurRadius: 4,
+              blurRadius: 10,
               spreadRadius: 2,
               offset: const Offset(0, 4),
             ),
@@ -45,14 +45,11 @@ class _ArtCardState extends State<ArtCard> {
             children: [
               ArtViewer(artData: widget.artData, compactMode: true),
               const SizedBox(height: 20),
-              SizedBox(
-                height: 30,
-                child: Text(
-                  widget.artData.title,
-                  style: const TextStyle(
-                    fontFamily: "Itim",
-                    fontSize: 18,
-                  ),
+              Text(
+                widget.artData.title,
+                style: const TextStyle(
+                  fontFamily: "Itim",
+                  fontSize: 14,
                 ),
               ),
             ],

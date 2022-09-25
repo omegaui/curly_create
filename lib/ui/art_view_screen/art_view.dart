@@ -128,8 +128,15 @@ class ArtView extends StatelessWidget {
                 width: 250,
                 height: 150,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDFDFDF).withOpacity(0.25),
+                  color: const Color(0xFFDFDFDF).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      blurRadius: 4,
+                      spreadRadius: 4,
+                    ),
+                  ],
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -147,6 +154,7 @@ class ArtView extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Material(
+                            color: Colors.transparent,
                             child: IconButton(
                               onPressed: () async {
                                 share();
@@ -160,6 +168,7 @@ class ArtView extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Material(
+                            color: Colors.transparent,
                             child: IconButton(
                               onPressed: () async {
                                 share();

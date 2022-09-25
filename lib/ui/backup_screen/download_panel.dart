@@ -49,44 +49,51 @@ class DownloadPanelState extends State<DownloadPanel> {
   @override
   Widget build(BuildContext context) {
     bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
-    return Container(
-      color: Colors.white,
-      child: initDownloadView
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset('assets/97572-connecting.json'),
-                Text(
-                  "connecting...",
-                  style: TextStyle(
-                    fontFamily: "Itim",
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-              ],
-            )
-          : SingleChildScrollView(
-              controller: scrollController,
-              child: remoteArts != null && !empty
-                  ? Column(
-                      children: remoteArts?.items
-                          .map((e) => DownloadCard(reference: e))
-                          .toList() as List<DownloadCard>,
-                    )
-                  : Column(
-                      children: [
-                        Text(
-                          'No Backups Available to download',
-                          style: TextStyle(
-                            fontFamily: 'Itim',
-                            color: Colors.grey.shade800,
-                          ),
-                        ),
-                        Lottie.asset(
-                            'assets/12955-no-internet-connection-empty-state.json'),
-                      ],
+    return Expanded(
+      child: Container(
+        color: Colors.white,
+        child: initDownloadView
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('assets/71003-big-data-centre-isomatric-animation-json.json'),
+                  Text(
+                    "connecting to server",
+                    style: TextStyle(
+                      fontFamily: "Itim",
+                      color: Colors.grey.shade700,
                     ),
+                  ),
+                ],
+              )
+            : Stack(
+              children: [
+                  Align(alignment: Alignment.centerRight, child: Lottie.asset('assets/90530-owls.json', width: 200)),
+                  SingleChildScrollView(
+                    controller: scrollController,
+                    child: remoteArts != null && !empty
+                        ? Column(
+                            children: remoteArts?.items
+                                .map((e) => DownloadCard(reference: e))
+                                .toList() as List<DownloadCard>,
+                          )
+                        : Column(
+                            children: [
+                              Text(
+                                'No Backups Available to download',
+                                style: TextStyle(
+                                  fontFamily: 'Itim',
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                              Lottie.asset(
+                                  'assets/12955-no-internet-connection-empty-state.json'),
+                            ],
+                          ),
+                  ),
+                ],
             ),
+      ),
     );
   }
 }

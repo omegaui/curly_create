@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:curly_create/io/app_data_manager.dart';
-import 'package:curly_create/ui/info_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
@@ -102,7 +101,7 @@ class TopPanelState extends State<TopPanel> {
   Widget build(BuildContext context) {
     return Container(
       key: const Key('normal'),
-      height: 260,
+      height: 220,
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
@@ -117,39 +116,6 @@ class TopPanelState extends State<TopPanel> {
             autoPlayInterval: 10000,
             isLoop: arts.isEmpty ? false : true,
             children: _buildImageSlideShow(),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: IconButton(
-                      onPressed: () {
-                        showInfoDialog(context);
-                      },
-                      icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: const FadeInImage(
-                          placeholder: profileImage,
-                          image: profileImage,
-                        ),
-                      ),
-                      iconSize: 32,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ),
           Align(
             alignment: Alignment.bottomRight,

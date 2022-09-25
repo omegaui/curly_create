@@ -38,11 +38,14 @@ class _BackupViewState extends State<BackupView> {
               padding: const EdgeInsets.all(20),
               child: Row(
                 children: [
-                  Image(
-                    image: pageIndex == 0 ? backup : download,
-                    width: 48,
-                    height: 48,
-                  ),
+                  if(pageIndex == 0)
+                    Image(
+                      image: backup,
+                      width: 48,
+                      height: 48,
+                    ),
+                  if(pageIndex == 1)
+                    Lottie.asset('assets/86198-satellite-signal.json', width: 50),
                   const SizedBox(width: 20),
                   Text(
                     pageIndex == 0 ? "backups" : "download",

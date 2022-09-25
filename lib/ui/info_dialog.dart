@@ -9,64 +9,77 @@ void showInfoDialog(BuildContext context){
     context: context,
     builder: (context) => Dialog(
       backgroundColor: Colors.transparent,
-      child: Container(
-        width: 200,
-        height: 250,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              blurRadius: 4,
-              spreadRadius: 4,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      child: SizedBox(
+        height: 300,
+        child: Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: const Image(
-                image: profileImage,
-                width: 48,
-                height: 48,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18.0),
+                child: Container(
+                  width: 270,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.25),
+                        blurRadius: 4,
+                        spreadRadius: 4,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: const Image(
+                          image: profileImage,
+                          width: 48,
+                          height: 48,
+                        ),
+                      ),
+                      Logo(scale: 0.5),
+                      const Text(
+                        "v1.1-stable",
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Lottie.asset('assets/72700-cute-bunnies-love-animation.json', width: 40),
+                      Text(
+                        "everytime I do something that hurts you",
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                          fontSize: 12,
+                          color: Colors.grey.withOpacity(0.7),
+                        ),
+                      ),
+                      Text(
+                        "please forgive me -- I know I'm mad",
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                          fontSize: 12,
+                          color: Colors.grey.withOpacity(0.7),
+                        ),
+                      ),
+                      Text(
+                        "but I only love, to torture you",
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                          fontSize: 12,
+                          color: Colors.grey.withOpacity(0.7),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            Logo(scale: 0.5),
-            const Text(
-              "v1.0-stable",
-              style: TextStyle(
-                fontFamily: "Itim",
-                color: Colors.grey,
-              ),
-            ),
-            Lottie.asset('assets/72700-cute-bunnies-love-animation.json', width: 40),
-            Text(
-              "everytime I do something that hurts you",
-              style: TextStyle(
-                fontFamily: "Itim",
-                fontSize: 12,
-                color: Colors.grey.withOpacity(0.7),
-              ),
-            ),
-            Text(
-              "please forgive me -- I know I'm mad",
-              style: TextStyle(
-                fontFamily: "Itim",
-                fontSize: 12,
-                color: Colors.grey.withOpacity(0.7),
-              ),
-            ),
-            Text(
-              "but I only love, to torture you",
-              style: TextStyle(
-                fontFamily: "Itim",
-                fontSize: 12,
-                color: Colors.grey.withOpacity(0.7),
-              ),
-            ),
+            Align(alignment: Alignment.topCenter, child: Lottie.asset('assets/33321-cute-owl.json', width: 60)),
           ],
         ),
       ),

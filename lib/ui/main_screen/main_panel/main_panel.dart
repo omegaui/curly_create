@@ -1,4 +1,3 @@
-
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import '../../../io/resource_manager.dart';
 import 'art_card.dart';
 
-class MainPanel extends StatefulWidget{
+class MainPanel extends StatefulWidget {
   const MainPanel({Key? key}) : super(key: key);
 
   @override
@@ -15,30 +14,28 @@ class MainPanel extends StatefulWidget{
 }
 
 class MainPanelState extends State<MainPanel> {
-
   ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      if(scrollController.position.pixels == 0){
+      if (scrollController.position.pixels == 0) {
         tabPanelKey.currentState?.setVisible(true);
-      }
-      else{
+      } else {
         tabPanelKey.currentState?.setVisible(false);
       }
     });
   }
 
-  void rebuild(){
+  void rebuild() {
     setState(() {});
   }
 
-  List<Widget> _buildArtCards(){
+  List<Widget> _buildArtCards() {
     List<Padding> rows = [];
-    if(arts.length > 1) {
-      for (var i = 0; i < arts.length - 1; i+=2) {
+    if (arts.length > 1) {
+      for (var i = 0; i < arts.length - 1; i += 2) {
         rows.add(
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -47,27 +44,30 @@ class MainPanelState extends State<MainPanel> {
               children: [
                 Hero(tag: 'art-$i', child: ArtCard(artData: arts.elementAt(i))),
                 const SizedBox(width: 10),
-                Hero(tag: 'art-${i + 1}', child: ArtCard(artData: arts.elementAt(i+1))),
+                Hero(
+                    tag: 'art-${i + 1}',
+                    child: ArtCard(artData: arts.elementAt(i + 1))),
               ],
             ),
           ),
         );
       }
-      if(arts.length % 2 == 1){
+      if (arts.length % 2 == 1) {
         rows.add(
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Hero(tag: 'art-${arts.length - 1}', child: ArtCard(artData: arts.last)),
+                Hero(
+                    tag: 'art-${arts.length - 1}',
+                    child: ArtCard(artData: arts.last)),
               ],
             ),
           ),
         );
       }
-    }
-    else if(arts.length == 1){
+    } else if (arts.length == 1) {
       rows.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
@@ -79,8 +79,7 @@ class MainPanelState extends State<MainPanel> {
           ),
         ),
       );
-    }
-    else{
+    } else {
       rows.add(
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -103,7 +102,8 @@ class MainPanelState extends State<MainPanel> {
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.cyan.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
                   ),
                   child: const Image(
                     image: newDrawingImage,
@@ -122,26 +122,31 @@ class MainPanelState extends State<MainPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(4, 2, 4, 0),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height - 150 - 140,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-          child: SingleChildScrollView(
-            controller: scrollController,
-            child: Column(
-              children: _buildArtCards(),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+        child: Stack(
+          children: [
+            if(arts.isNotEmpty)
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 70),
+                  child: Lottie.asset('assets/107419-boat-animation.json',
+                      width: 150),
+                )),
+            SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: _buildArtCards(),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
-

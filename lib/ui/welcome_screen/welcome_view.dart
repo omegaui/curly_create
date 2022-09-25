@@ -1,6 +1,5 @@
 
 import 'package:curly_create/ui/sign_in_screen/sign_in_screen.dart';
-import 'package:curly_create/ui/welcome_screen/gift_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

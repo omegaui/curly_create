@@ -78,7 +78,7 @@ class _BackupCardState extends State<BackupCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -90,8 +90,16 @@ class _BackupCardState extends State<BackupCard> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.4),
+                  blurRadius: 10,
+                  spreadRadius: 1,
+                  offset: Offset(0, 2)
+              ),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),

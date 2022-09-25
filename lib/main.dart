@@ -19,9 +19,11 @@ late FirebaseApp firebaseApp;
 late List<CameraDescription> cameras;
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.blue,
-    statusBarColor: Colors.grey,
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
   ));
 
   WidgetsFlutterBinding.ensureInitialized();

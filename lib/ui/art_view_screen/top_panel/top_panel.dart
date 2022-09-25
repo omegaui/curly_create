@@ -14,11 +14,12 @@ class TopPanel extends StatelessWidget{
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: const BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
-              color: Colors.indigoAccent.withOpacity(0.25),
-              blurRadius: 4,
+              color: Colors.grey.withOpacity(0.25),
+              blurRadius: 6,
+              offset: Offset(0, -6),
             ),
           ],
         ),

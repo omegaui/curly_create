@@ -1,6 +1,7 @@
 
 import 'package:curly_create/ui/backup_screen/backup_card.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../io/app_data_manager.dart';
 import '../main_screen/main_view.dart';
@@ -42,12 +43,19 @@ class BackupPanelState extends State<BackupPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          children: arts.map((e) => BackupCard(artData: e, backupActive: startBackup)).toList(),
+    return Expanded(
+      child: Container(
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Center(child: Lottie.asset('assets/58050-space-astronaut.json')),
+            SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: arts.map((e) => BackupCard(artData: e, backupActive: startBackup)).toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );
