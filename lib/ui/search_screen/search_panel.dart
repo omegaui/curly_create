@@ -61,7 +61,7 @@ class SearchPanelState extends State<SearchPanel> {
                 children: [
                   Lottie.asset('assets/98312-empty.json'),
                   Text(
-                    "Looks like you haven't drawn that yet!",
+                    "Looks like that hasn't been drawn yet!",
                     style: TextStyle(
                       fontFamily: "Itim",
                       color: Colors.grey.shade800,

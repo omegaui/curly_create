@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'firebase_options.dart';
 
@@ -19,13 +20,6 @@ late FirebaseApp firebaseApp;
 late List<CameraDescription> cameras;
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.blue,
-    statusBarColor: Colors.white,
-    statusBarIconBrightness: Brightness.dark,
-  ));
-
   WidgetsFlutterBinding.ensureInitialized();
 
   cameras = await availableCameras();
@@ -74,6 +68,18 @@ class ContentPaneState extends State<ContentPane> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ));
+
+      await Permission.storage.request();
+      await Permission.camera.request();
+
       await initAppData();
       firebaseApp = await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
@@ -82,9 +88,6 @@ class ContentPaneState extends State<ContentPane> {
         if (FirebaseAuth.instance.currentUser == null) {
           showInSnackBar(context, "Auto Login Failed!");
         }
-      }
-      else{
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const StartScreen()));
       }
     });
   }

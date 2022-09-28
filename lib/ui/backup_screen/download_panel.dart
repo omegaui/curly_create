@@ -69,6 +69,7 @@ class DownloadPanelState extends State<DownloadPanel> {
             : Stack(
               children: [
                   Align(alignment: Alignment.centerRight, child: Lottie.asset('assets/90530-owls.json', width: 200)),
+                  Align(alignment: Alignment.centerLeft, child: Lottie.asset('assets/9844-loading-40-paperplane.json', width: 250)),
                   SingleChildScrollView(
                     controller: scrollController,
                     child: remoteArts != null && !empty

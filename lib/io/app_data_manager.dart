@@ -10,6 +10,7 @@ import 'art_data.dart';
 
 SharedPreferences? prefs;
 bool loggedIn = false;
+bool guestMode = false;
 bool firstStartup = true;
 
 List<ArtData> arts = [

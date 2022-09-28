@@ -65,7 +65,7 @@ class TabPanelState extends State<TabPanel> {
               TabButton(
                 active: contentPaneKey.currentState?.viewIndex == 1,
                 iconData: Icons.backup_outlined,
-                title: "backups",
+                title: guestMode ? "downloads" : "backups",
                 callback: () {
                   setState(() {
                     backupPanelKey.currentState?.rebuild();

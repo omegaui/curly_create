@@ -1,4 +1,3 @@
-
 import 'package:curly_create/io/resource_manager.dart';
 import 'package:curly_create/ui/art_view_screen/top_panel/top_panel.dart';
 import 'package:curly_create/widgets/art_viewer.dart';
@@ -11,7 +10,6 @@ import '../../io/art_data.dart';
 import '../art_edit_screen/art_edit.dart';
 
 class ArtView extends StatelessWidget {
-
   final ArtData artData;
 
   const ArtView({Key? key, required this.artData}) : super(key: key);
@@ -37,51 +35,55 @@ class ArtView extends StatelessWidget {
                     tag: 'art-${arts.indexOf(artData)}',
                     child: ArtViewer(artData: artData, compactMode: false),
                   ),
-                  SizedBox(
-                    width: 205,
-                    height: 275,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (builder) => ArtEditView(artData: artData)));
-                            },
-                            style: TextButton.styleFrom(
-                                primary: Colors.white,
-                                shape: RoundedRectangleBorder(
+                  if (!guestMode)
+                    SizedBox(
+                      width: 205,
+                      height: 275,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            height: 60,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) =>
+                                            ArtEditView(artData: artData)));
+                              },
+                              style: TextButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  )),
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
-                                )
-                            ),
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.white,
-                                    blurRadius: 6,
-                                    spreadRadius: 6,
-                                  )
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.edit_outlined,
-                                color: Colors.black,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      blurRadius: 6,
+                                      spreadRadius: 6,
+                                    )
+                                  ],
+                                ),
+                                child: const Icon(
+                                  Icons.edit_outlined,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        ],
+                      ),
+                    )
                 ],
               ),
               const SizedBox(height: 10),
@@ -106,7 +108,9 @@ class ArtView extends StatelessWidget {
                       SizedBox(
                         height: 16,
                         child: Text(
-                          artData.description.isEmpty ? "No Description Provided" : artData.description,
+                          artData.description.isEmpty
+                              ? "No Description Provided"
+                              : artData.description,
                           style: const TextStyle(
                             fontFamily: "Itim",
                           ),
@@ -114,7 +118,9 @@ class ArtView extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        artData.note.isEmpty ? "No Notes Attached" : artData.note,
+                        artData.note.isEmpty
+                            ? "No Notes Attached"
+                            : artData.note,
                         style: const TextStyle(
                           fontFamily: "Itim",
                         ),
@@ -141,7 +147,8 @@ class ArtView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assets/92530-error-hide-and-seek.json', width: 48, height: 48),
+                    Lottie.asset('assets/92530-error-hide-and-seek.json',
+                        width: 48, height: 48),
                     const Text(
                       "share to",
                       style: TextStyle(
@@ -194,5 +201,4 @@ class ArtView extends StatelessWidget {
       ),
     );
   }
-
 }

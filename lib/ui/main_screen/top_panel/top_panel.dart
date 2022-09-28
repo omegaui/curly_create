@@ -54,16 +54,16 @@ class TopPanelState extends State<TopPanel> {
                           ),
                         ))));
           },
-          onVerticalDragEnd: (details){
+          onVerticalDragEnd: (details) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (builder) => Scaffold(
-                        body: Container(
+                            body: Container(
                           color: Colors.black,
                           child: Hero(
                             tag:
-                            'top-art-element-${arts.indexOf(tempArts.elementAt(i))}',
+                                'top-art-element-${arts.indexOf(tempArts.elementAt(i))}',
                             child: InteractiveViewer(
                               panEnabled: true,
                               child: Image.file(
@@ -90,7 +90,10 @@ class TopPanelState extends State<TopPanel> {
     } else {
       images.add(
         GestureDetector(
-          child: Center(child: Logo(scale: 2,)),
+          child: Center(
+              child: Logo(
+            scale: 2,
+          )),
         ),
       );
     }
@@ -122,7 +125,11 @@ class TopPanelState extends State<TopPanel> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
               child: Container(
-                child: arts.isNotEmpty ? Lottie.asset('assets/78625-le-petit-chat-cat-noir.json', width: 70, height: 70) : Lottie.asset('assets/80394-swing-under-the-tree.json', width: 70),
+                child: arts.isNotEmpty
+                    ? Lottie.asset('assets/78625-le-petit-chat-cat-noir.json',
+                        width: 70, height: 70)
+                    : Lottie.asset('assets/80394-swing-under-the-tree.json',
+                        width: 70),
               ),
             ),
           ),

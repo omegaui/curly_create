@@ -1,12 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:curly_create/io/app_data_manager.dart';
+import 'package:curly_create/main.dart';
+import 'package:curly_create/ui/sign_in_screen/sign_in_screen.dart';
 import 'package:curly_create/ui/welcome_screen/gift_view.dart';
+import 'package:curly_create/ui/welcome_screen/start_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../io/authentication.dart';
+import '../info_dialog.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
@@ -48,11 +52,12 @@ class GoogleSignInButtonState extends State<GoogleSignInButton> {
             await prefs?.setBool('logged-in', true);
             loggedIn = true;
             showSuccessfulLoginSnackBar(context, 'Ready to create backups!');
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const Scaffold(body: GiftView()),
-              ),
-            );
+            mainViewKey.currentState?.rebuild();
+            Navigator.pop(context);
+            if(firstStartup){
+              showInfoDialog(context);
+              prefs?.setBool('first-startup', false);
+            }
           }
           else{
             Navigator.of(context).push(
@@ -72,13 +77,39 @@ class GoogleSignInButtonState extends State<GoogleSignInButton> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Lottie.asset('assets/106983-failed.json', width: 200, height: 200),
-                            const Text(
-                              "Try Again",
+                            const LottieController(name: '93950-no-love-match.json', duration: Duration(seconds: 2), size: 250),
+                            Text(
+                              "Access Denied",
                               style: TextStyle(
                                 fontFamily: 'Itim',
-                                fontSize: 18,
-                                color: Colors.red,
+                                fontSize: 14,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                            Text(
+                              "Only the owner can login through Master Mode",
+                              style: TextStyle(
+                                fontFamily: 'Itim',
+                                fontSize: 14,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                            const SizedBox(height: 100),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.blue.withOpacity(0.4),
+                              ),
+                              child: const Text(
+                                "Okay",
+                                style: TextStyle(
+                                  fontFamily: "Itim",
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                           ],

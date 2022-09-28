@@ -1,5 +1,6 @@
 
 import 'package:curly_create/io/resource_manager.dart';
+import 'package:curly_create/ui/welcome_screen/start_screen.dart';
 import 'package:curly_create/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -42,44 +43,23 @@ void showInfoDialog(BuildContext context){
                         ),
                       ),
                       Logo(scale: 0.5),
-                      const Text(
-                        "v1.1-stable",
-                        style: TextStyle(
-                          fontFamily: "Itim",
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Lottie.asset('assets/72700-cute-bunnies-love-animation.json', width: 40),
                       Text(
-                        "everytime I do something that hurts you",
+                        "v1.2-stable",
                         style: TextStyle(
                           fontFamily: "Itim",
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.7),
+                          color: Colors.grey.shade600,
                         ),
                       ),
-                      Text(
-                        "please forgive me -- I know I'm mad",
-                        style: TextStyle(
-                          fontFamily: "Itim",
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.7),
-                        ),
-                      ),
-                      Text(
-                        "but I only love, to torture you",
-                        style: TextStyle(
-                          fontFamily: "Itim",
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.7),
-                        ),
-                      ),
+                      const LottieController(name: "72700-cute-bunnies-love-animation.json", duration: Duration(milliseconds: 1200), delay: Duration(milliseconds: 1000), size: 40),
+                      const SizedBox(height: 10),
+                      Lottie.asset('assets/76879-waves-colors.json', width: 50),
                     ],
                   ),
                 ),
               ),
             ),
             Align(alignment: Alignment.topCenter, child: Lottie.asset('assets/33321-cute-owl.json', width: 60)),
+            Align(alignment: Alignment.center, child: Lottie.asset('assets/83730-winter-snow.json', height: 220, width: MediaQuery.of(context).size.width - 50)),
           ],
         ),
       ),

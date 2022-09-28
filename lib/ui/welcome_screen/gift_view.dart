@@ -55,7 +55,7 @@ class GiftView extends StatelessWidget{
               }
             },
             style: TextButton.styleFrom(
-              primary: Colors.blueAccent,
+              backgroundColor: Colors.blueAccent,
             ),
             child: const Text(
               "let's see",
