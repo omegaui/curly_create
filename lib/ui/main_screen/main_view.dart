@@ -8,7 +8,6 @@ import '../../io/app_data_manager.dart';
 import 'package:curly_create/ui/backup_screen/backup_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../io/resource_manager.dart';
 import '../info_dialog.dart';
 import 'main_panel/main_panel.dart';
 import 'tab_panel/tab_panel.dart';
