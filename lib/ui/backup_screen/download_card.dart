@@ -202,7 +202,7 @@ class _DownloadCardState extends State<DownloadCard> {
                             ),
                           ),
                           Visibility(
-                            visible: !downloadActive,
+                            visible: !guestMode && !downloadActive,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: Material(
