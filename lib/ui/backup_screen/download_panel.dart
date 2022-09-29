@@ -56,7 +56,8 @@ class DownloadPanelState extends State<DownloadPanel> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset('assets/71003-big-data-centre-isomatric-animation-json.json'),
+                  Lottie.asset(
+                      'assets/71003-big-data-centre-isomatric-animation-json.json'),
                   Text(
                     "connecting to server",
                     style: TextStyle(
@@ -67,9 +68,16 @@ class DownloadPanelState extends State<DownloadPanel> {
                 ],
               )
             : Stack(
-              children: [
-                  Align(alignment: Alignment.centerRight, child: Lottie.asset('assets/90530-owls.json', width: 200)),
-                  Align(alignment: Alignment.centerLeft, child: Lottie.asset('assets/9844-loading-40-paperplane.json', width: 250)),
+                children: [
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                          Lottie.asset('assets/90530-owls.json', width: 200)),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Lottie.asset(
+                          'assets/9844-loading-40-paperplane.json',
+                          width: 250)),
                   SingleChildScrollView(
                     controller: scrollController,
                     child: remoteArts != null && !empty
@@ -93,7 +101,7 @@ class DownloadPanelState extends State<DownloadPanel> {
                           ),
                   ),
                 ],
-            ),
+              ),
       ),
     );
   }

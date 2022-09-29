@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../io/resource_manager.dart';
 import '../../../widgets/logo.dart';
 
-class TopPanel extends StatelessWidget{
+class TopPanel extends StatelessWidget {
   const TopPanel({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +13,8 @@ class TopPanel extends StatelessWidget{
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(15), topLeft: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.25),
@@ -52,6 +52,4 @@ class TopPanel extends StatelessWidget{
       ),
     );
   }
-
 }
-

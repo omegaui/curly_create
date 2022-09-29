@@ -35,55 +35,54 @@ class ArtView extends StatelessWidget {
                     tag: 'art-${arts.indexOf(artData)}',
                     child: ArtViewer(artData: artData, compactMode: false),
                   ),
-                  if (!guestMode)
-                    SizedBox(
-                      width: 205,
-                      height: 275,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (builder) =>
-                                            ArtEditView(artData: artData)));
-                              },
-                              style: TextButton.styleFrom(
-                                  primary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  )),
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
+                  SizedBox(
+                    width: 205,
+                    height: 275,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) =>
+                                          ArtEditView(artData: artData)));
+                            },
+                            style: TextButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.white,
-                                      blurRadius: 6,
-                                      spreadRadius: 6,
-                                    )
-                                  ],
-                                ),
-                                child: const Icon(
-                                  Icons.edit_outlined,
-                                  color: Colors.black,
-                                ),
+                                )),
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.white,
+                                    blurRadius: 6,
+                                    spreadRadius: 6,
+                                  )
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.edit_outlined,
+                                color: Colors.black,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    )
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
               const SizedBox(height: 10),

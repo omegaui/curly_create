@@ -21,18 +21,18 @@ class ArtViewer extends StatelessWidget {
             MaterialPageRoute(
                 builder: (builder) => Scaffold(
                         body: Container(
-                          color: Colors.black,
-                          child: InteractiveViewer(
-                            panEnabled: true,
-                            child: Image.file(
-                      File(artData.path),
-                      fit: BoxFit.fitWidth,
-                      height: double.infinity,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
-                          ),
-                        ))));
+                      color: Colors.black,
+                      child: InteractiveViewer(
+                        panEnabled: true,
+                        child: Image.file(
+                          File(artData.path),
+                          fit: BoxFit.fitWidth,
+                          height: double.infinity,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                        ),
+                      ),
+                    ))));
       },
       child: Container(
         width: compactMode ? 209.45 / 1.9 : 209.45,

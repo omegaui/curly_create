@@ -1,4 +1,3 @@
-
 import 'package:curly_create/ui/search_screen/search_panel.dart';
 import 'package:flutter/material.dart';
 
@@ -58,11 +57,14 @@ class SearchView extends StatelessWidget {
                             color: Colors.grey.shade500,
                           ),
                           border: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent)),
+                              borderSide:
+                                  BorderSide(color: Colors.transparent)),
                           enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent)),
+                              borderSide:
+                                  BorderSide(color: Colors.transparent)),
                           focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent)),
+                              borderSide:
+                                  BorderSide(color: Colors.transparent)),
                         ),
                       ),
                     ),
@@ -77,4 +79,3 @@ class SearchView extends StatelessWidget {
     );
   }
 }
-

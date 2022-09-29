@@ -1,21 +1,19 @@
-
 import 'package:flutter/material.dart';
 
 import '../../io/art_data.dart';
 
-class TileColorPicker extends StatefulWidget{
-
+class TileColorPicker extends StatefulWidget {
   final ArtData artData;
   final Function(int) onPick;
 
-  const TileColorPicker({Key? key, required this.onPick, required this.artData}) : super(key: key);
+  const TileColorPicker({Key? key, required this.onPick, required this.artData})
+      : super(key: key);
 
   @override
   State<TileColorPicker> createState() => _TileColorPickerState();
 }
 
 class _TileColorPickerState extends State<TileColorPicker> {
-
   int selection = 0;
 
   @override
@@ -39,30 +37,42 @@ class _TileColorPickerState extends State<TileColorPicker> {
           Wrap(
             spacing: 4,
             children: [
-              ColorBall(tileColor: getTileColor(0), onPick: () {
-                setState(() {
-                  selection = 0;
-                });
-                widget.onPick.call(0);
-              }, active: selection == 0),
-              ColorBall(tileColor: getTileColor(1), onPick: () {
-                setState(() {
-                  selection = 1;
-                });
-                widget.onPick.call(1);
-              }, active: selection == 1),
-              ColorBall(tileColor: getTileColor(2), onPick: () {
-                setState(() {
-                  selection = 2;
-                });
-                widget.onPick.call(2);
-              }, active: selection == 2),
-              ColorBall(tileColor: getTileColor(3), onPick: () {
-                setState(() {
-                  selection = 3;
-                });
-                widget.onPick.call(3);
-              }, active: selection == 3),
+              ColorBall(
+                  tileColor: getTileColor(0),
+                  onPick: () {
+                    setState(() {
+                      selection = 0;
+                    });
+                    widget.onPick.call(0);
+                  },
+                  active: selection == 0),
+              ColorBall(
+                  tileColor: getTileColor(1),
+                  onPick: () {
+                    setState(() {
+                      selection = 1;
+                    });
+                    widget.onPick.call(1);
+                  },
+                  active: selection == 1),
+              ColorBall(
+                  tileColor: getTileColor(2),
+                  onPick: () {
+                    setState(() {
+                      selection = 2;
+                    });
+                    widget.onPick.call(2);
+                  },
+                  active: selection == 2),
+              ColorBall(
+                  tileColor: getTileColor(3),
+                  onPick: () {
+                    setState(() {
+                      selection = 3;
+                    });
+                    widget.onPick.call(3);
+                  },
+                  active: selection == 3),
             ],
           ),
         ],
@@ -71,14 +81,18 @@ class _TileColorPickerState extends State<TileColorPicker> {
   }
 }
 
-class ColorBall extends StatelessWidget{
-  
+class ColorBall extends StatelessWidget {
   final Color tileColor;
   final VoidCallback onPick;
   final bool active;
-  
-  const ColorBall({Key? key, required this.tileColor, required this.onPick, required this.active}) : super(key: key);
-  
+
+  const ColorBall(
+      {Key? key,
+      required this.tileColor,
+      required this.onPick,
+      required this.active})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -100,19 +114,14 @@ class ColorBall extends StatelessWidget{
       ),
     );
   }
-  
 }
 
-
-
-Color getTileColor(int colorTileIndex){
-  if(colorTileIndex == 0){
+Color getTileColor(int colorTileIndex) {
+  if (colorTileIndex == 0) {
     return const Color(0xFFEFEFEF);
-  }
-  else if(colorTileIndex == 1){
+  } else if (colorTileIndex == 1) {
     return const Color(0xFFFFFFFF);
-  }
-  else if(colorTileIndex == 3){
+  } else if (colorTileIndex == 3) {
     return const Color(0xFFBDBDBD);
   }
   return const Color(0xFFDFDFDF);

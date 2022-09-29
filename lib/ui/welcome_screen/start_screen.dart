@@ -1,7 +1,6 @@
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/main.dart';
 import 'package:curly_create/ui/sign_in_screen/sign_in_screen.dart';
-import 'package:curly_create/ui/welcome_screen/welcome_view.dart';
 import 'package:curly_create/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -37,7 +36,7 @@ class StartScreen extends StatelessWidget {
                     const SizedBox(height: 50),
                     Logo(scale: 1.5),
                     const Text(
-                      "version 1.2-stable",
+                      "version 1.3-stable",
                       style: TextStyle(
                         fontFamily: "Itim",
                         fontSize: 12,
@@ -59,13 +58,19 @@ class StartScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Lottie.asset('assets/76734-shield-icon.json', width: 200),
+                          Lottie.asset('assets/76734-shield-icon.json',
+                              width: 200),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SignInScreen()));
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.blueAccent.withOpacity(0.1),
+                              backgroundColor:
+                                  Colors.blueAccent.withOpacity(0.1),
                             ),
                             child: const Text(
                               "Master Login",
@@ -90,8 +95,9 @@ class StartScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Lottie.asset('assets/110283-vrrr.json', width: 80),
                     TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         guestMode = true;
+                        await prefs?.setBool('guest-mode', true);
                         mainViewKey.currentState?.rebuild();
                       },
                       style: TextButton.styleFrom(
@@ -128,7 +134,8 @@ class LottieController extends StatefulWidget {
       {super.key,
       required this.name,
       required this.duration,
-      required this.size, this.delay});
+      required this.size,
+      this.delay});
 
   @override
   State<LottieController> createState() => _LottieControllerState();
@@ -160,7 +167,7 @@ class _LottieControllerState extends State<LottieController>
       width: widget.size,
       controller: _animationController,
       onLoaded: (composition) async {
-        if(widget.delay != null){
+        if (widget.delay != null) {
           await Future.delayed(widget.delay as Duration);
         }
         _animationController.forward();

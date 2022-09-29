@@ -1,4 +1,3 @@
-
 import 'package:curly_create/io/art_data.dart';
 import 'package:curly_create/widgets/art_viewer.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../io/app_data_manager.dart';
 import '../../art_view_screen/art_view.dart';
 
-class ArtCard extends StatefulWidget{
-
+class ArtCard extends StatefulWidget {
   final ArtData artData;
 
   const ArtCard({Key? key, required this.artData}) : super(key: key);
@@ -17,15 +15,17 @@ class ArtCard extends StatefulWidget{
 }
 
 class _ArtCardState extends State<ArtCard> {
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (builder) => ArtView(artData: widget.artData)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (builder) => ArtView(artData: widget.artData)));
       },
       child: Container(
-        width: (MediaQuery.of(context).size.width/2 - 20),
+        width: (MediaQuery.of(context).size.width / 2 - 20),
         height: 220,
         decoration: BoxDecoration(
           color: widget.artData.getTileColor(),
@@ -59,7 +59,3 @@ class _ArtCardState extends State<ArtCard> {
     );
   }
 }
-
-
-
-

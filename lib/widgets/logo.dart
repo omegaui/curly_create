@@ -1,9 +1,7 @@
-
 import 'package:curly_create/io/resource_manager.dart';
 import 'package:flutter/material.dart';
 
-class Logo extends StatelessWidget{
-
+class Logo extends StatelessWidget {
   double? scale;
 
   Logo({Key? key, this.scale}) : super(key: key);
@@ -22,7 +20,11 @@ class Logo extends StatelessWidget{
             children: [
               ShaderMask(
                 blendMode: BlendMode.srcIn,
-                shaderCallback: (rect) => const LinearGradient(colors: [Color(0xFF232323), Color(0xab454545)], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(rect),
+                shaderCallback: (rect) => const LinearGradient(
+                        colors: [Color(0xFF232323), Color(0xab454545)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)
+                    .createShader(rect),
                 child: Text(
                   "Curly",
                   style: TextStyle(
@@ -40,7 +42,11 @@ class Logo extends StatelessWidget{
           ),
           ShaderMask(
             blendMode: BlendMode.srcIn,
-            shaderCallback: (rect) => const LinearGradient(colors: [Color(0xab454545), Color(0xFF232323)], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(rect),
+            shaderCallback: (rect) => const LinearGradient(
+                    colors: [Color(0xab454545), Color(0xFF232323)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)
+                .createShader(rect),
             child: Text(
               "Create",
               style: TextStyle(
@@ -53,8 +59,4 @@ class Logo extends StatelessWidget{
       ),
     );
   }
-
 }
-
-
-

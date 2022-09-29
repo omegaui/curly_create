@@ -4,10 +4,14 @@ import 'package:curly_create/io/app_data_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../io/art_data.dart';
+import '../../../io/authentication.dart';
 import '../../../io/resource_manager.dart';
+import '../../../main.dart';
 import '../../../widgets/logo.dart';
+import '../../info_dialog.dart';
 
 class TopPanel extends StatefulWidget {
   const TopPanel({Key? key}) : super(key: key);
@@ -80,7 +84,7 @@ class TopPanelState extends State<TopPanel> {
           child: Hero(
             tag: 'top-art-element-${arts.indexOf(tempArts.elementAt(i))}',
             child: FadeInImage(
-              placeholder: pluto,
+              placeholder: defaultIllustration,
               image: FileImage(File(tempArts.elementAt(i).path)),
               fit: BoxFit.fitWidth,
             ),
@@ -91,9 +95,112 @@ class TopPanelState extends State<TopPanel> {
       images.add(
         GestureDetector(
           child: Center(
-              child: Logo(
-            scale: 2,
-          )),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Material(
+                            child: IconButton(
+                              tooltip: "Report a Bug",
+                              onPressed: () async {
+                                Uri url = Uri.parse(
+                                    'https://github.com/omegaui/curly_create/issues/new');
+                                if (await canLaunchUrl(url)) {
+                                  await launchUrl(url);
+                                }
+                              },
+                              icon: Icon(
+                                Icons.outlined_flag,
+                                color: Colors.grey.shade700,
+                              ),
+                              iconSize: 20,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: IconButton(
+                                onPressed: () {
+                                  showInfoDialog(context);
+                                },
+                                icon: ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Lottie.asset(
+                                      'assets/33321-cute-owl.json'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Material(
+                            child: IconButton(
+                              tooltip: "Sign Out",
+                              onPressed: () async {
+                                loggedIn = false;
+                                if (guestMode) {
+                                  await Authentication.signOut(
+                                      context: context);
+                                }
+                                await prefs?.setBool('logged-in', false);
+                                await prefs?.setBool('guest-mode', false);
+                                guestMode = false;
+                                mainViewKey.currentState?.rebuild();
+                              },
+                              icon: Icon(
+                                Icons.logout,
+                                color: Colors.grey.shade700,
+                              ),
+                              iconSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Logo(
+                          scale: 1.5,
+                        ),
+                        const Text(
+                          "version 1.2-stable",
+                          style: TextStyle(
+                            fontFamily: "Itim",
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }

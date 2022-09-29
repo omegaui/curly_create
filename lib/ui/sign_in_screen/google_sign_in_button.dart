@@ -2,8 +2,6 @@
 
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/main.dart';
-import 'package:curly_create/ui/sign_in_screen/sign_in_screen.dart';
-import 'package:curly_create/ui/welcome_screen/gift_view.dart';
 import 'package:curly_create/ui/welcome_screen/start_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,118 +27,123 @@ class GoogleSignInButtonState extends State<GoogleSignInButton> {
       child: _isSigningIn
           ? Lottie.asset('assets/79157-login.json')
           : OutlinedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-          ),
-        ),
-        onPressed: () async {
-          setState(() {
-            _isSigningIn = true;
-          });
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ),
+              onPressed: () async {
+                setState(() {
+                  _isSigningIn = true;
+                });
 
-          User? user = await Authentication.signInWithGoogle(context: context);
+                User? user =
+                    await Authentication.signInWithGoogle(context: context);
 
-          setState(() {
-            _isSigningIn = false;
-          });
+                setState(() {
+                  _isSigningIn = false;
+                });
 
-          if (user != null) {
-            await prefs?.setBool('logged-in', true);
-            loggedIn = true;
-            showSuccessfulLoginSnackBar(context, 'Ready to create backups!');
-            mainViewKey.currentState?.rebuild();
-            Navigator.pop(context);
-            if(firstStartup){
-              showInfoDialog(context);
-              prefs?.setBool('first-startup', false);
-            }
-          }
-          else{
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => Container(
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        style: TextButton.styleFrom(
-                          primary: Colors.redAccent,
-                        ),
+                if (user != null) {
+                  await prefs?.setBool('logged-in', true);
+                  loggedIn = true;
+                  showSuccessfulLoginSnackBar(
+                      context, 'Ready to create backups!');
+                  mainViewKey.currentState?.rebuild();
+                  Navigator.pop(context);
+                  if (firstStartup) {
+                    showInfoDialog(context);
+                    prefs?.setBool('first-startup', false);
+                  }
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Container(
+                        color: Colors.white,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const LottieController(name: '93950-no-love-match.json', duration: Duration(seconds: 2), size: 250),
-                            Text(
-                              "Access Denied",
-                              style: TextStyle(
-                                fontFamily: 'Itim',
-                                fontSize: 14,
-                                color: Colors.grey.shade800,
-                              ),
-                            ),
-                            Text(
-                              "Only the owner can login through Master Mode",
-                              style: TextStyle(
-                                fontFamily: 'Itim',
-                                fontSize: 14,
-                                color: Colors.grey.shade800,
-                              ),
-                            ),
-                            const SizedBox(height: 100),
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
-                                Navigator.pop(context);
                               },
                               style: TextButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.blue.withOpacity(0.4),
+                                primary: Colors.redAccent,
                               ),
-                              child: const Text(
-                                "Okay",
-                                style: TextStyle(
-                                  fontFamily: "Itim",
-                                  color: Colors.blue,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const LottieController(
+                                      name: '93950-no-love-match.json',
+                                      duration: Duration(seconds: 2),
+                                      size: 250),
+                                  Text(
+                                    "Access Denied",
+                                    style: TextStyle(
+                                      fontFamily: 'Itim',
+                                      fontSize: 14,
+                                      color: Colors.grey.shade800,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Only the owner can login through Master Mode",
+                                    style: TextStyle(
+                                      fontFamily: 'Itim',
+                                      fontSize: 14,
+                                      color: Colors.grey.shade800,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 100),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor:
+                                          Colors.blue.withOpacity(0.4),
+                                    ),
+                                    child: const Text(
+                                      "Okay",
+                                      style: TextStyle(
+                                        fontFamily: "Itim",
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  );
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Sign in with Google',
+                        style: TextStyle(
+                          fontFamily: "Itim",
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-            );
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  'Sign in with Google',
-                  style: TextStyle(
-                    fontFamily: "Itim",
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

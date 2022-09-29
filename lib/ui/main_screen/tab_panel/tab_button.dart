@@ -1,14 +1,18 @@
-
 import 'package:flutter/material.dart';
 
-class TabButton extends StatelessWidget{
-
+class TabButton extends StatelessWidget {
   final bool active;
   final IconData iconData;
   final String title;
   final VoidCallback callback;
 
-  const TabButton({Key? key, required this.active, required this.iconData, required this.title, required this.callback}) : super(key: key);
+  const TabButton(
+      {Key? key,
+      required this.active,
+      required this.iconData,
+      required this.title,
+      required this.callback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,4 @@ class TabButton extends StatelessWidget{
       ),
     );
   }
-
 }
-
-

@@ -123,21 +123,30 @@ class MainPanelState extends State<MainPanel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            blurRadius: 40,
+            spreadRadius: 10,
+          ),
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
         child: Stack(
           children: [
-            if(arts.isNotEmpty)
-            Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 70),
-                  child: Lottie.asset('assets/107419-boat-animation.json',
-                      width: 150),
-                )),
+            if (arts.isNotEmpty)
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 70),
+                    child: Lottie.asset('assets/107419-boat-animation.json',
+                        width: 150),
+                  )),
             SingleChildScrollView(
               controller: scrollController,
               child: Column(

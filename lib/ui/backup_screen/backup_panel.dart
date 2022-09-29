@@ -1,4 +1,3 @@
-
 import 'package:curly_create/ui/backup_screen/backup_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -6,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import '../../io/app_data_manager.dart';
 import '../main_screen/main_view.dart';
 
-class BackupPanel extends StatefulWidget{
+class BackupPanel extends StatefulWidget {
   const BackupPanel({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +13,6 @@ class BackupPanel extends StatefulWidget{
 }
 
 class BackupPanelState extends State<BackupPanel> {
-
   bool startBackup = false;
   ScrollController scrollController = ScrollController();
 
@@ -22,22 +20,21 @@ class BackupPanelState extends State<BackupPanel> {
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      if(scrollController.position.pixels == 0){
+      if (scrollController.position.pixels == 0) {
         tabPanelKey.currentState?.setVisible(true);
-      }
-      else{
+      } else {
         tabPanelKey.currentState?.setVisible(false);
       }
     });
   }
 
-  void checkForBackup(){
+  void checkForBackup() {
     setState(() {
       startBackup = true;
     });
   }
 
-  void rebuild(){
+  void rebuild() {
     setState(() {});
   }
 
@@ -52,7 +49,10 @@ class BackupPanelState extends State<BackupPanel> {
             SingleChildScrollView(
               controller: scrollController,
               child: Column(
-                children: arts.map((e) => BackupCard(artData: e, backupActive: startBackup)).toList(),
+                children: arts
+                    .map((e) =>
+                        BackupCard(artData: e, backupActive: startBackup))
+                    .toList(),
               ),
             ),
           ],
@@ -61,5 +61,3 @@ class BackupPanelState extends State<BackupPanel> {
     );
   }
 }
-
-

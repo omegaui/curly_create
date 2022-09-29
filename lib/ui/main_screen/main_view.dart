@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../io/app_data_manager.dart';
 import 'package:curly_create/ui/backup_screen/backup_view.dart';
-import 'package:curly_create/ui/welcome_screen/welcome_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../io/resource_manager.dart';
@@ -49,7 +48,7 @@ class MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    if(!loggedIn && !guestMode){
+    if (!loggedIn && !guestMode) {
       return const StartScreen();
     }
     return SafeArea(
@@ -75,8 +74,9 @@ class MainViewState extends State<MainView> {
                                   child: IconButton(
                                     tooltip: "Report a Bug",
                                     onPressed: () async {
-                                      Uri url = Uri.parse('https://github.com/omegaui/curly_create/issues/new');
-                                      if(await canLaunchUrl(url)){
+                                      Uri url = Uri.parse(
+                                          'https://github.com/omegaui/curly_create/issues/new');
+                                      if (await canLaunchUrl(url)) {
                                         await launchUrl(url);
                                       }
                                     },
@@ -105,7 +105,8 @@ class MainViewState extends State<MainView> {
                                       },
                                       icon: ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
-                                        child: Lottie.asset('assets/33321-cute-owl.json'),
+                                        child: Lottie.asset(
+                                            'assets/33321-cute-owl.json'),
                                       ),
                                     ),
                                   ),
@@ -118,10 +119,12 @@ class MainViewState extends State<MainView> {
                                     tooltip: "Sign Out",
                                     onPressed: () async {
                                       loggedIn = false;
-                                      if(guestMode){
-                                        await Authentication.signOut(context: context);
+                                      if (guestMode) {
+                                        await Authentication.signOut(
+                                            context: context);
                                       }
                                       await prefs?.setBool('logged-in', false);
+                                      await prefs?.setBool('guest-mode', false);
                                       guestMode = false;
                                       mainViewKey.currentState?.rebuild();
                                     },
@@ -145,7 +148,7 @@ class MainViewState extends State<MainView> {
                                   fontSize: 20,
                                 ),
                               ),
-                              if(!guestMode)
+                              if (!guestMode)
                                 const Text(
                                   ", Parul",
                                   style: TextStyle(

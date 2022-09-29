@@ -9,6 +9,7 @@ class SignInScreen extends StatefulWidget {
   @override
   SignInScreenState createState() => SignInScreenState();
 }
+
 class SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,8 @@ class SignInScreenState extends State<SignInScreen> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assets/23317-payment-declined-authentication-app-animation.json'),
+                    Lottie.asset(
+                        'assets/23317-payment-declined-authentication-app-animation.json'),
                     Text(
                       'let\'s secure your arts ~ forever',
                       style: TextStyle(

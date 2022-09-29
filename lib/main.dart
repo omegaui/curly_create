@@ -1,10 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/authentication.dart';
-import 'package:curly_create/ui/main_screen/main_panel/main_panel.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
-import 'package:curly_create/ui/welcome_screen/start_screen.dart';
-import 'package:curly_create/ui/welcome_screen/welcome_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +23,7 @@ Future<void> main() async {
   runApp(const App());
 }
 
-class App extends StatelessWidget{
+class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
@@ -38,10 +35,9 @@ class App extends StatelessWidget{
       ),
     );
   }
-
 }
 
-class ContentPane extends StatefulWidget{
+class ContentPane extends StatefulWidget {
   const ContentPane({Key? key}) : super(key: key);
 
   @override
@@ -49,26 +45,24 @@ class ContentPane extends StatefulWidget{
 }
 
 class ContentPaneState extends State<ContentPane> {
-
   int viewIndex = 0;
-  
-  void setPage(int index){
+
+  void setPage(int index) {
     setState(() {
       viewIndex = index;
     });
   }
 
-  void rebuild(){
+  void rebuild() {
     setState(() {
       viewIndex = 0;
     });
   }
-  
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
@@ -84,7 +78,7 @@ class ContentPaneState extends State<ContentPane> {
       firebaseApp = await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      if(loggedIn) {
+      if (loggedIn) {
         if (FirebaseAuth.instance.currentUser == null) {
           showInSnackBar(context, "Auto Login Failed!");
         }
@@ -100,4 +94,3 @@ class ContentPaneState extends State<ContentPane> {
     );
   }
 }
-

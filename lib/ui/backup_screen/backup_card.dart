@@ -91,14 +91,14 @@ class _BackupCardState extends State<BackupCard> {
           height: 50,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
             boxShadow: [
               BoxShadow(
                   color: Colors.grey.withOpacity(0.4),
                   blurRadius: 10,
                   spreadRadius: 1,
-                  offset: Offset(0, 2)
-              ),
+                  offset: Offset(0, 2)),
             ],
           ),
           child: Padding(
@@ -164,7 +164,8 @@ class _BackupCardState extends State<BackupCard> {
                                       tooltip:
                                           "Update Metadata (description and note)",
                                       onPressed: () async {
-                                        showInSnackBar(context, "Updating Metadata of ${widget.artData.title} ... ");
+                                        showInSnackBar(context,
+                                            "Updating Metadata of ${widget.artData.title} ... ");
                                         await imagesRef
                                             .child(
                                                 '${widget.artData.title}.jpeg')
@@ -179,7 +180,8 @@ class _BackupCardState extends State<BackupCard> {
                                                   "colorTileIndex":
                                                       '${widget.artData.colorTileIndex}'
                                                 }));
-                                        showInSnackBar(context, "Updated Metadata of ${widget.artData.title}.");
+                                        showInSnackBar(context,
+                                            "Updated Metadata of ${widget.artData.title}.");
                                       },
                                       icon: const Icon(
                                         Icons.update,

@@ -21,7 +21,7 @@ class _BackupViewState extends State<BackupView> {
 
   Future<void> setPageIndex(int index) async {
     setState(() {
-      if(!guestMode) {
+      if (!guestMode) {
         pageIndex = index;
       }
     });
@@ -49,7 +49,7 @@ class _BackupViewState extends State<BackupView> {
                         width: 50),
                   const SizedBox(width: 20),
                   Text(
-                    pageIndex == 0 && !guestMode ? "backups" : "download",
+                    pageIndex == 0 && !guestMode ? "Backups" : "Downloads",
                     style: TextStyle(
                       fontFamily: 'Itim',
                       fontSize: 24,

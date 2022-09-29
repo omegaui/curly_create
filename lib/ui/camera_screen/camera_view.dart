@@ -177,9 +177,7 @@ class _CameraViewState extends State<CameraView>
     if (cameraController == null || !cameraController.value.isInitialized) {
       return const Text(
         'Tap a camera',
-        style: TextStyle(
-          fontFamily: "Itim"
-        ),
+        style: TextStyle(fontFamily: "Itim"),
       );
     } else {
       return Listener(
@@ -189,14 +187,14 @@ class _CameraViewState extends State<CameraView>
           controller!,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onScaleStart: _handleScaleStart,
-                  onScaleUpdate: _handleScaleUpdate,
-                  onTapDown: (TapDownDetails details) =>
-                      onViewFinderTap(details, constraints),
-                );
-              }),
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onScaleStart: _handleScaleStart,
+              onScaleUpdate: _handleScaleUpdate,
+              onTapDown: (TapDownDetails details) =>
+                  onViewFinderTap(details, constraints),
+            );
+          }),
         ),
       );
     }
@@ -236,25 +234,25 @@ class _CameraViewState extends State<CameraView>
                 height: 64.0,
                 child: (localVideoController == null)
                     ? (
-                    // The captured image on the web contains a network-accessible URL
-                    // pointing to a location within the browser. It may be displayed
-                    // either with Image.network or Image.memory after loading the image
-                    // bytes to memory.
-                    kIsWeb
-                        ? Image.network(imageFile!.path)
-                        : Image.file(File(imageFile!.path)))
+                        // The captured image on the web contains a network-accessible URL
+                        // pointing to a location within the browser. It may be displayed
+                        // either with Image.network or Image.memory after loading the image
+                        // bytes to memory.
+                        kIsWeb
+                            ? Image.network(imageFile!.path)
+                            : Image.file(File(imageFile!.path)))
                     : Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.pink)),
-                  child: Center(
-                    child: AspectRatio(
-                        aspectRatio:
-                        localVideoController.value.size != null
-                            ? localVideoController.value.aspectRatio
-                            : 1.0,
-                        child: VideoPlayer(localVideoController)),
-                  ),
-                ),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.pink)),
+                        child: Center(
+                          child: AspectRatio(
+                              aspectRatio:
+                                  localVideoController.value.size != null
+                                      ? localVideoController.value.aspectRatio
+                                      : 1.0,
+                              child: VideoPlayer(localVideoController)),
+                        ),
+                      ),
               ),
           ],
         ),
@@ -277,20 +275,20 @@ class _CameraViewState extends State<CameraView>
             // The exposure and focus mode are currently not supported on the web.
             ...!kIsWeb
                 ? <Widget>[
-              IconButton(
-                icon: const Icon(Icons.exposure),
-                color: Colors.blue,
-                onPressed: controller != null
-                    ? onExposureModeButtonPressed
-                    : null,
-              ),
-              IconButton(
-                icon: const Icon(Icons.filter_center_focus),
-                color: Colors.blue,
-                onPressed:
-                controller != null ? onFocusModeButtonPressed : null,
-              )
-            ]
+                    IconButton(
+                      icon: const Icon(Icons.exposure),
+                      color: Colors.blue,
+                      onPressed: controller != null
+                          ? onExposureModeButtonPressed
+                          : null,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.filter_center_focus),
+                      color: Colors.blue,
+                      onPressed:
+                          controller != null ? onFocusModeButtonPressed : null,
+                    )
+                  ]
                 : <Widget>[],
             IconButton(
               icon: Icon(enableAudio ? Icons.volume_up : Icons.volume_mute),
@@ -397,7 +395,7 @@ class _CameraViewState extends State<CameraView>
                     style: styleAuto,
                     onPressed: controller != null
                         ? () =>
-                        onSetExposureModeButtonPressed(ExposureMode.auto)
+                            onSetExposureModeButtonPressed(ExposureMode.auto)
                         : null,
                     onLongPress: () {
                       if (controller != null) {
@@ -411,7 +409,7 @@ class _CameraViewState extends State<CameraView>
                     style: styleLocked,
                     onPressed: controller != null
                         ? () =>
-                        onSetExposureModeButtonPressed(ExposureMode.locked)
+                            onSetExposureModeButtonPressed(ExposureMode.locked)
                         : null,
                     child: const Text('LOCKED'),
                   ),
@@ -437,7 +435,7 @@ class _CameraViewState extends State<CameraView>
                     max: _maxAvailableExposureOffset,
                     label: _currentExposureOffset.toString(),
                     onChanged: _minAvailableExposureOffset ==
-                        _maxAvailableExposureOffset
+                            _maxAvailableExposureOffset
                         ? null
                         : setExposureOffset,
                   ),
@@ -515,12 +513,10 @@ class _CameraViewState extends State<CameraView>
 
     return IconButton(
       icon: const Icon(Icons.pause_presentation),
-      color:
-      cameraController != null && cameraController.value.isPreviewPaused
+      color: cameraController != null && cameraController.value.isPreviewPaused
           ? Colors.red
           : Colors.blue,
-      onPressed:
-      cameraController == null ? null : onPausePreviewButtonPressed,
+      onPressed: cameraController == null ? null : onPausePreviewButtonPressed,
     );
   }
 
@@ -551,9 +547,9 @@ class _CameraViewState extends State<CameraView>
               groupValue: controller?.description,
               value: cameraDescription,
               onChanged:
-              controller != null && controller!.value.isRecordingVideo
-                  ? null
-                  : onChanged,
+                  controller != null && controller!.value.isRecordingVideo
+                      ? null
+                      : onChanged,
             ),
           ),
         );
@@ -566,8 +562,13 @@ class _CameraViewState extends State<CameraView>
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
 
   void showInSnackBar(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message, style: const TextStyle(fontFamily: 'Itim', color: Colors.white),), backgroundColor: Colors.blue, padding: const EdgeInsets.all(20)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          message,
+          style: const TextStyle(fontFamily: 'Itim', color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
+        padding: const EdgeInsets.all(20)));
   }
 
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
@@ -623,12 +624,12 @@ class _CameraViewState extends State<CameraView>
         // The exposure mode is currently not supported on the web.
         ...!kIsWeb
             ? <Future<Object?>>[
-          cameraController.getMinExposureOffset().then(
-                  (double value) => _minAvailableExposureOffset = value),
-          cameraController
-              .getMaxExposureOffset()
-              .then((double value) => _maxAvailableExposureOffset = value)
-        ]
+                cameraController.getMinExposureOffset().then(
+                    (double value) => _minAvailableExposureOffset = value),
+                cameraController
+                    .getMaxExposureOffset()
+                    .then((double value) => _maxAvailableExposureOffset = value)
+              ]
             : <Future<Object?>>[],
         cameraController
             .getMaxZoomLevel()
@@ -643,22 +644,22 @@ class _CameraViewState extends State<CameraView>
           showInSnackBar('You have denied camera access.');
           break;
         case 'CameraAccessDeniedWithoutPrompt':
-        // iOS only
+          // iOS only
           showInSnackBar('Please go to Settings app to enable camera access.');
           break;
         case 'CameraAccessRestricted':
-        // iOS only
+          // iOS only
           showInSnackBar('Camera access is restricted.');
           break;
         case 'AudioAccessDenied':
           showInSnackBar('You have denied audio access.');
           break;
         case 'AudioAccessDeniedWithoutPrompt':
-        // iOS only
+          // iOS only
           showInSnackBar('Please go to Settings app to enable audio access.');
           break;
         case 'AudioAccessRestricted':
-        // iOS only
+          // iOS only
           showInSnackBar('Audio access is restricted.');
           break;
         default:
@@ -683,7 +684,10 @@ class _CameraViewState extends State<CameraView>
         });
         if (file != null) {
           var data = ArtData("", 0, file.path, "", "");
-          Navigator.push(context, MaterialPageRoute(builder: (builder) => ArtEditView(artData: data)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (builder) => ArtEditView(artData: data)));
         }
       }
     });

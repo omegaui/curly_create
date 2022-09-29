@@ -1,4 +1,3 @@
-
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/resource_manager.dart';
 import 'package:curly_create/ui/art_edit_screen/tile_color_picker.dart';
@@ -12,18 +11,17 @@ import 'package:lottie/lottie.dart';
 import '../../io/art_data.dart';
 
 class ArtEditView extends StatelessWidget {
-  
   final ArtData artData;
   TextEditingController? titleFieldController;
   TextEditingController? descriptionFieldController;
   TextEditingController? noteFieldController;
-  
+
   ArtEditView({Key? key, required this.artData}) : super(key: key) {
     titleFieldController = TextEditingController(text: artData.title);
-    descriptionFieldController = TextEditingController(text: artData.description);
+    descriptionFieldController =
+        TextEditingController(text: artData.description);
     noteFieldController = TextEditingController(text: artData.note);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,14 +119,14 @@ class ArtEditView extends StatelessWidget {
                         Text(
                           "Tile Color",
                           style: TextStyle(
-                            fontFamily: "Itim",
-                            color: Colors.grey.shade900
-                          ),
+                              fontFamily: "Itim", color: Colors.grey.shade900),
                         ),
                         const SizedBox(width: 10),
-                        TileColorPicker(onPick: (index) {
-                          artData.colorTileIndex = index;
-                        }, artData: artData),
+                        TileColorPicker(
+                            onPick: (index) {
+                              artData.colorTileIndex = index;
+                            },
+                            artData: artData),
                       ],
                     )
                   ],
@@ -144,15 +142,17 @@ class ArtEditView extends StatelessWidget {
                       child: IconButton(
                         tooltip: "Done",
                         onPressed: () async {
-                          if(titleFieldController?.text.isEmpty as bool){
-                            showInSnackBar(context, "Title cannot be empty, it is essential for creating backups!");
+                          if (titleFieldController?.text.isEmpty as bool) {
+                            showInSnackBar(context,
+                                "Title cannot be empty, it is essential for creating backups!");
                             return;
                           }
                           artData.title = titleFieldController?.text as String;
-                          artData.description = descriptionFieldController?.text as String;
+                          artData.description =
+                              descriptionFieldController?.text as String;
                           artData.note = noteFieldController?.text as String;
 
-                          if(!arts.contains(artData)){
+                          if (!arts.contains(artData)) {
                             arts.add(artData);
                           }
 
@@ -174,7 +174,7 @@ class ArtEditView extends StatelessWidget {
                       child: IconButton(
                         tooltip: "Remove from Collections",
                         onPressed: () async {
-                          if(arts.contains(artData)){
+                          if (arts.contains(artData)) {
                             arts.remove(artData);
                           }
                           saveAppData();
@@ -219,5 +219,4 @@ class ArtEditView extends StatelessWidget {
       ),
     );
   }
-
 }

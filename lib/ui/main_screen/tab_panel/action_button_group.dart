@@ -18,7 +18,7 @@ class ActionButtonGroup extends StatelessWidget {
         width: guestMode ? 60 : 150,
         height: 60,
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: guestMode ? Colors.blue.withOpacity(.2) : Colors.blue,
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(

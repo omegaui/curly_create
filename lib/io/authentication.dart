@@ -27,9 +27,10 @@ class Authentication {
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
       String? email = userCredential.user?.email;
-      if(email != null) {
+      if (email != null) {
         print(email);
-        if(email == 'curlycreatebackups@gmail.com' || email == 'arhamfar22@gmail.com') {
+        if (email == 'curlycreatebackups@gmail.com' ||
+            email == 'arhamfar22@gmail.com') {
           user = userCredential.user;
         }
       }

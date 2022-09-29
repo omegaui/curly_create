@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/art_data.dart';
+import 'package:curly_create/ui/backup_delete_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -103,12 +104,11 @@ class _DownloadCardState extends State<DownloadCard> {
     setState(() {});
   }
 
-  String getRandomArtTrailingLottie(){
+  String getRandomArtTrailingLottie() {
     int x = Random().nextInt(3);
-    if(x == 0){
+    if (x == 0) {
       return "87856-color-blast.json";
-    }
-    else if(x == 1){
+    } else if (x == 1) {
       return "87422-color-wheel.json";
     }
     return "70143-gold-star.json";
@@ -122,14 +122,14 @@ class _DownloadCardState extends State<DownloadCard> {
         height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              blurRadius: 10,
-              spreadRadius: 1,
-              offset: Offset(0, 2)
-            ),
+                color: Colors.grey.withOpacity(0.4),
+                blurRadius: 10,
+                spreadRadius: 1,
+                offset: Offset(0, 2)),
           ],
         ),
         child: Padding(
@@ -147,17 +147,19 @@ class _DownloadCardState extends State<DownloadCard> {
                 bool downloaded = isArtPresentOffline(metadata.customMetadata);
                 return Row(
                   children: [
-                    if(downloadActive)
+                    if (downloadActive)
                       Lottie.asset('assets/7572-download.json'),
-                    if(!downloadActive)
+                    if (!downloadActive)
                       Lottie.asset('assets/${getRandomArtTrailingLottie()}'),
-                    if(downloadActive)
+                    if (downloadActive)
                       AnimatedTextKit(
                         animatedTexts: [
                           ColorizeAnimatedText(
                             "downloading ${(snapShot.data as FullMetadata).customMetadata?['title']}",
-                            textStyle:
-                            const TextStyle(fontFamily: 'Itim', fontSize: 14, color: Colors.blue),
+                            textStyle: const TextStyle(
+                                fontFamily: 'Itim',
+                                fontSize: 14,
+                                color: Colors.blue),
                             colors: [
                               Colors.blue.shade700,
                               Colors.blue.shade300,
@@ -167,7 +169,7 @@ class _DownloadCardState extends State<DownloadCard> {
                         ],
                         isRepeatingAnimation: true,
                       ),
-                    if(!downloadActive)
+                    if (!downloadActive)
                       Text(
                         metadata.customMetadata?['title'] as String,
                         style: TextStyle(
@@ -182,7 +184,8 @@ class _DownloadCardState extends State<DownloadCard> {
                           Visibility(
                             visible: downloadActive,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
                               child: Lottie.asset('assets/82387-download.json'),
                             ),
                           ),
@@ -195,6 +198,28 @@ class _DownloadCardState extends State<DownloadCard> {
                                 Icons.done,
                                 color: Colors.blue.shade700,
                                 size: 20,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: !downloadActive,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: Material(
+                                color: Colors.white,
+                                child: IconButton(
+                                  onPressed: () {
+                                    showBackupDeleteDialog(
+                                        widget.reference, context);
+                                  },
+                                  tooltip: "Delete Backup Forever!",
+                                  icon: const Icon(
+                                    Icons.delete_forever,
+                                    color: Colors.redAccent,
+                                  ),
+                                  splashRadius: 16,
+                                  iconSize: 16,
+                                ),
                               ),
                             ),
                           ),

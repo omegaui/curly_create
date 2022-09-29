@@ -1,5 +1,3 @@
-
-
 import 'package:curly_create/ui/art_edit_screen/art_edit.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:file_picker/file_picker.dart';
@@ -13,25 +11,31 @@ bool loggedIn = false;
 bool guestMode = false;
 bool firstStartup = true;
 
-List<ArtData> arts = [
-
-];
+List<ArtData> arts = [];
 
 Future<void> initAppData() async {
   prefs = await SharedPreferences.getInstance();
   loggedIn = prefs?.getBool('logged-in') ?? false;
+  guestMode = prefs?.getBool('guest-mode') ?? false;
   firstStartup = prefs?.getBool('first-startup') ?? true;
   List<String>? titles = prefs?.getStringList('titles');
-  if(titles != null && titles.isNotEmpty) {
+  if (titles != null && titles.isNotEmpty) {
     List<String>? colorTileIndexes = prefs?.getStringList('colorTileIndexes');
     List<String>? paths = prefs?.getStringList('paths');
     List<String>? descriptions = prefs?.getStringList('descriptions');
     List<String>? notes = prefs?.getStringList('notes');
-    if(colorTileIndexes != null && paths != null && descriptions != null && notes != null) {
+    if (colorTileIndexes != null &&
+        paths != null &&
+        descriptions != null &&
+        notes != null) {
       int len = titles.length;
       for (var i = 0; i < len; i++) {
-        arts.add(ArtData(titles.elementAt(i), int.parse(colorTileIndexes.elementAt(i)),
-            paths.elementAt(i), descriptions.elementAt(i), notes.elementAt(i)));
+        arts.add(ArtData(
+            titles.elementAt(i),
+            int.parse(colorTileIndexes.elementAt(i)),
+            paths.elementAt(i),
+            descriptions.elementAt(i),
+            notes.elementAt(i)));
       }
     }
   }
@@ -44,7 +48,7 @@ Future<void> saveAppData() async {
   List<String> paths = [];
   List<String> descriptions = [];
   List<String> notes = [];
-  for(var data in arts){
+  for (var data in arts) {
     titles.add(data.title);
     colorTileIndexes.add(data.colorTileIndex.toString());
     paths.add(data.path);
@@ -58,18 +62,17 @@ Future<void> saveAppData() async {
   await prefs?.setStringList('notes', notes);
 }
 
-
 Future<void> pickArts(BuildContext context) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     allowMultiple: true,
     dialogTitle: "Pick Art",
     type: FileType.image,
   );
-  if(result != null){
-    for(var file in result.files){
+  if (result != null) {
+    for (var file in result.files) {
       var data = ArtData("", 0, file.path as String, "", "");
-      Navigator.push(context, MaterialPageRoute(builder: (builder) => ArtEditView(artData: data)));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (builder) => ArtEditView(artData: data)));
     }
   }
 }
-

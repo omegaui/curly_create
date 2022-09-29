@@ -1,4 +1,3 @@
-
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/ui/search_screen/search_card.dart';
 import 'package:curly_create/ui/search_screen/search_view.dart';
@@ -7,7 +6,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../io/art_data.dart';
 
-class SearchPanel extends StatefulWidget{
+class SearchPanel extends StatefulWidget {
   const SearchPanel({Key? key}) : super(key: key);
 
   @override
@@ -15,12 +14,11 @@ class SearchPanel extends StatefulWidget{
 }
 
 class SearchPanelState extends State<SearchPanel> {
-
   List<ArtData> searchDataSet = [];
 
-  void search(String text){
+  void search(String text) {
     searchDataSet.clear();
-    if(text.isNotEmpty) {
+    if (text.isNotEmpty) {
       for (var artData in arts) {
         if (artData.title.contains(text)) {
           searchDataSet.add(artData);
@@ -29,7 +27,7 @@ class SearchPanelState extends State<SearchPanel> {
     }
     setState(() {});
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -38,37 +36,40 @@ class SearchPanelState extends State<SearchPanel> {
           Visibility(
             visible: searchDataSet.isNotEmpty,
             child: Column(
-              children: searchDataSet.map((e) => SearchCard(artData: e)).toList(),
+              children:
+                  searchDataSet.map((e) => SearchCard(artData: e)).toList(),
             ),
           ),
           Expanded(
             child: Visibility(
               visible: searchDataSet.isEmpty,
-              child: searchFieldController.text.isEmpty ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('assets/77218-search-imm.json'),
-                  Text(
-                    "Start Typing to hunt your awesome arts",
-                    style: TextStyle(
-                      fontFamily: "Itim",
-                      color: Colors.grey.shade800,
+              child: searchFieldController.text.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/77218-search-imm.json'),
+                        Text(
+                          "Start Typing to hunt those awesome arts",
+                          style: TextStyle(
+                            fontFamily: "Itim",
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/98312-empty.json'),
+                        Text(
+                          "Looks like that hasn't been drawn yet!",
+                          style: TextStyle(
+                            fontFamily: "Itim",
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ) : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('assets/98312-empty.json'),
-                  Text(
-                    "Looks like that hasn't been drawn yet!",
-                    style: TextStyle(
-                      fontFamily: "Itim",
-                      color: Colors.grey.shade800,
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
         ],
@@ -76,5 +77,3 @@ class SearchPanelState extends State<SearchPanel> {
     );
   }
 }
-
-
