@@ -1,6 +1,6 @@
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/resource_manager.dart';
-import 'package:curly_create/ui/art_edit_screen/tile_color_picker.dart';
+import 'package:curly_create/ui/art_edit_screen/tile_wave_picker.dart';
 import 'package:curly_create/ui/art_edit_screen/top_panel/top_panel.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:curly_create/io/authentication.dart';
@@ -122,7 +122,7 @@ class ArtEditView extends StatelessWidget {
                               fontFamily: "Itim", color: Colors.grey.shade900),
                         ),
                         const SizedBox(width: 10),
-                        TileColorPicker(
+                        TileWavePicker(
                             onPick: (index) {
                               artData.colorTileIndex = index;
                             },

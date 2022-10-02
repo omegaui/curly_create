@@ -17,3 +17,7 @@ const AssetImage defaultIllustration = AssetImage('assets/orange-cat.png');
 const AssetImage tabArt = AssetImage('assets/tab-art-128.png');
 const AssetImage backup = AssetImage('assets/backup.png');
 const AssetImage download = AssetImage('assets/download.png');
+const AssetImage vectorWave1 = AssetImage('assets/vector-wave-back1.jpg');
+const AssetImage vectorWave2 = AssetImage('assets/vector-wave-back2.jpg');
+const AssetImage vectorWave3 = AssetImage('assets/vector-wave-back3.jpg');
+const AssetImage vectorWave4 = AssetImage('assets/vector-wave-back4.jpg');

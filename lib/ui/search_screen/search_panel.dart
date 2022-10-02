@@ -31,49 +31,49 @@ class SearchPanelState extends State<SearchPanel> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          Visibility(
-            visible: searchDataSet.isNotEmpty,
-            child: Column(
-              children:
-                  searchDataSet.map((e) => SearchCard(artData: e)).toList(),
-            ),
-          ),
-          Expanded(
-            child: Visibility(
-              visible: searchDataSet.isEmpty,
-              child: searchFieldController.text.isEmpty
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset('assets/77218-search-imm.json'),
-                        Text(
-                          "Start Typing to hunt those awesome arts",
-                          style: TextStyle(
-                            fontFamily: "Itim",
-                            color: Colors.grey.shade800,
+      child: searchDataSet.isNotEmpty
+          ? SingleChildScrollView(
+              child: Column(
+                children:
+                    searchDataSet.map((e) => SearchCard(artData: e)).toList(),
+              ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: Visibility(
+                    visible: searchDataSet.isEmpty,
+                    child: searchFieldController.text.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset('assets/77218-search-imm.json'),
+                              Text(
+                                "Start Typing to hunt those awesome arts",
+                                style: TextStyle(
+                                  fontFamily: "Itim",
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset('assets/98312-empty.json'),
+                              Text(
+                                "Looks like that hasn't been drawn yet!",
+                                style: TextStyle(
+                                  fontFamily: "Itim",
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset('assets/98312-empty.json'),
-                        Text(
-                          "Looks like that hasn't been drawn yet!",
-                          style: TextStyle(
-                            fontFamily: "Itim",
-                            color: Colors.grey.shade800,
-                          ),
-                        ),
-                      ],
-                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

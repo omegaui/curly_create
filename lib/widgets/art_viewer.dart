@@ -21,7 +21,7 @@ class ArtViewer extends StatelessWidget {
             MaterialPageRoute(
                 builder: (builder) => Scaffold(
                         body: Container(
-                      color: Colors.black,
+                          color: Colors.white,
                       child: InteractiveViewer(
                         panEnabled: true,
                         child: Image.file(
@@ -38,7 +38,7 @@ class ArtViewer extends StatelessWidget {
         width: compactMode ? 209.45 / 1.9 : 209.45,
         height: compactMode ? 279.45 / 1.9 : 279.45,
         decoration: BoxDecoration(
-          color: artData.getTileColor(),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
         child: ClipRRect(

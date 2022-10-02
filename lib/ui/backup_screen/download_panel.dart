@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:curly_create/io/art_data.dart';
 import 'package:curly_create/io/backups.dart';
 import 'package:curly_create/ui/backup_screen/backup_view.dart';
 import 'package:curly_create/ui/backup_screen/download_card.dart';
@@ -17,6 +18,14 @@ Future<void> loadAll() async {
   remoteArts = await imagesRef.list();
   initDownloadView = false;
   downloadPanelKey.currentState?.rebuild();
+}
+
+bool isPresentOnRemoteServer(ArtData artData){
+  bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
+  if (!empty) {
+
+  }
+  return false;
 }
 
 class DownloadPanel extends StatefulWidget {
@@ -46,6 +55,53 @@ class DownloadPanelState extends State<DownloadPanel> {
     setState(() {});
   }
 
+  Alignment getOwlAlignment() {
+    bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
+    if (!empty) {
+      var size = remoteArts?.items.length as int;
+      if (size <= 8) {
+        return Alignment.bottomRight;
+      }
+    }
+    return Alignment.centerRight;
+  }
+
+  Alignment getPlaneAlignment() {
+    bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
+    if (!empty) {
+      var size = remoteArts?.items.length as int;
+      if (size > 6) {
+        return Alignment.bottomLeft;
+      }
+    }
+    return Alignment.centerLeft;
+  }
+
+  EdgeInsets getOwlPadding() {
+    if (getOwlAlignment() == Alignment.bottomRight) {
+      return const EdgeInsets.only(bottom: 70);
+    }
+    return EdgeInsets.zero;
+  }
+
+  EdgeInsets getPlanePadding() {
+    if (getPlaneAlignment() == Alignment.bottomLeft) {
+      return const EdgeInsets.only(bottom: 30);
+    }
+    return EdgeInsets.zero;
+  }
+
+  bool getAnimationVisible() {
+    bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
+    if (!empty) {
+      var size = remoteArts?.items.length as int;
+      if (size > 8) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
@@ -69,15 +125,22 @@ class DownloadPanelState extends State<DownloadPanel> {
               )
             : Stack(
                 children: [
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child:
-                          Lottie.asset('assets/90530-owls.json', width: 200)),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Lottie.asset(
-                          'assets/9844-loading-40-paperplane.json',
-                          width: 250)),
+                  if (getAnimationVisible())
+                    Align(
+                        alignment: getOwlAlignment(),
+                        child: Padding(
+                            padding: getOwlPadding(),
+                            child: Lottie.asset('assets/90530-owls.json',
+                                width: 200))),
+                  if (getAnimationVisible())
+                    Align(
+                        alignment: getPlaneAlignment(),
+                        child: Padding(
+                          padding: getPlanePadding(),
+                          child: Lottie.asset(
+                              'assets/9844-loading-40-paperplane.json',
+                              width: 250),
+                        )),
                   SingleChildScrollView(
                     controller: scrollController,
                     child: remoteArts != null && !empty

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../io/resource_manager.dart';
+import '../../../main.dart';
 import 'art_card.dart';
 
 class MainPanel extends StatefulWidget {
@@ -87,9 +88,9 @@ class MainPanelState extends State<MainPanel> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Lottie.asset('assets/63534-image-preloader.json'),
-              const Text(
-                "Add your Arts to list them here",
-                style: TextStyle(
+              Text(
+                guestMode ? "Head over to downloads section and grab some arts" : "Add your Arts to list them here",
+                style: const TextStyle(
                   fontFamily: "Itim",
                 ),
               ),
@@ -98,11 +99,15 @@ class MainPanelState extends State<MainPanel> {
                 height: 50,
                 child: TextButton(
                   onPressed: () async {
-                    await pickArts(context);
+                    if(guestMode) {
+                      contentPaneKey.currentState?.setPage(1);
+                    }
+                    else {
+                      await pickArts(context);
+                    }
                   },
                   style: TextButton.styleFrom(
-                    primary: Colors.cyan.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.cyan.withOpacity(0.3), shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                   ),
                   child: const Image(

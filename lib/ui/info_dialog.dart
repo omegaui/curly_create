@@ -43,7 +43,7 @@ void showInfoDialog(BuildContext context) {
                       ),
                       Logo(scale: 0.5),
                       Text(
-                        "v1.3-stable",
+                        "v1.4-stable",
                         style: TextStyle(
                           fontFamily: "Itim",
                           color: Colors.grey.shade600,

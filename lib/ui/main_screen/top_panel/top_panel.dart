@@ -188,7 +188,7 @@ class TopPanelState extends State<TopPanel> {
                           scale: 1.5,
                         ),
                         const Text(
-                          "version 1.3-stable",
+                          "version 1.4-stable",
                           style: TextStyle(
                             fontFamily: "Itim",
                             fontSize: 12,
