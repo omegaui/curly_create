@@ -36,7 +36,7 @@ class StartScreen extends StatelessWidget {
                     const SizedBox(height: 50),
                     Logo(scale: 1.5),
                     const Text(
-                      "version 1.4-stable",
+                      "version 1.5-stable",
                       style: TextStyle(
                         fontFamily: "Itim",
                         fontSize: 12,
@@ -170,7 +170,9 @@ class _LottieControllerState extends State<LottieController>
         if (widget.delay != null) {
           await Future.delayed(widget.delay as Duration);
         }
-        _animationController.forward();
+        if(mounted) {
+          _animationController.forward();
+        }
       },
     );
   }

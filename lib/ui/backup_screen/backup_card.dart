@@ -113,7 +113,7 @@ class _BackupCardState extends State<BackupCard> {
                     height: 40,
                     child: FadeInImage(
                       placeholder: illustration,
-                      image: FileImage(File(widget.artData.path)),
+                      image: widget.artData.image,
                       fit: BoxFit.fitWidth,
                     ),
                   ),

@@ -45,7 +45,7 @@ class ArtViewer extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           child: FadeInImage(
             placeholder: illustration,
-            image: FileImage(File(artData.path)),
+            image: artData.image,
             fit: BoxFit.fitWidth,
           ),
         ),

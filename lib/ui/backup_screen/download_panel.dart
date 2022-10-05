@@ -10,20 +10,29 @@ import 'package:lottie/lottie.dart';
 
 import '../main_screen/main_view.dart';
 
-ListResult? remoteArts = null;
+ListResult? remoteArts;
+List<String> remoteArtNames = [];
 
 bool initDownloadView = true;
 
 Future<void> loadAll() async {
   remoteArts = await imagesRef.list();
+  bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
+  if (!empty) {
+    for(var ref in (remoteArts?.items as List<Reference>)){
+      FullMetadata metadata = await ref.getMetadata();
+      remoteArtNames.add(metadata.customMetadata?['title'] as String);
+    }
+  }
   initDownloadView = false;
   downloadPanelKey.currentState?.rebuild();
+  mainPanelKey.currentState?.rebuild();
 }
 
 bool isPresentOnRemoteServer(ArtData artData){
   bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
   if (!empty) {
-
+    return remoteArtNames.contains(artData.title);
   }
   return false;
 }

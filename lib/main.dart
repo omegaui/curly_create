@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/authentication.dart';
+import 'package:curly_create/ui/backup_screen/download_panel.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,6 +50,7 @@ class ContentPane extends StatefulWidget {
 
 class ContentPaneState extends State<ContentPane> {
   int viewIndex = 0;
+  StreamSubscription<ConnectivityResult>? subscription;
 
   void setPage(int index) {
     setState(() {
@@ -74,7 +79,6 @@ class ContentPaneState extends State<ContentPane> {
       await Permission.storage.request();
       await Permission.camera.request();
 
-      await initAppData();
       firebaseApp = await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
@@ -83,7 +87,22 @@ class ContentPaneState extends State<ContentPane> {
           showInSnackBar(context, "Auto Login Failed!");
         }
       }
+      await initAppData();
+      await loadAll();
+
+      subscription = Connectivity().onConnectivityChanged.listen((event) {
+        print('connectivity changed: $event');
+        if(event != ConnectivityResult.none) {
+          mainViewKey.currentState?.rebuild();
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription?.cancel();
   }
 
   @override

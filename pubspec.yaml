@@ -52,6 +52,11 @@ dependencies:
   animated_text_kit: ^4.2.2
   permission_handler: ^10.0.2
   url_launcher: ^6.1.6
+  cached_network_image: ^3.2.2
+  connectivity_plus: ^2.3.8
+  palette_generator: ^0.3.3+2
+  image_pixels: ^3.0.0
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:

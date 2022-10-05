@@ -2,6 +2,7 @@ import 'package:curly_create/ui/art_edit_screen/art_edit.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'art_data.dart';
@@ -20,6 +21,15 @@ Future<void> initAppData() async {
   firstStartup = prefs?.getBool('first-startup') ?? true;
   List<String>? titles = prefs?.getStringList('titles');
   if (titles != null && titles.isNotEmpty) {
+    Fluttertoast.showToast(
+      msg: "Optimizing Performance",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blue,
+      textColor: Colors.white,
+      fontSize: 12.0,
+    );
     List<String>? colorTileIndexes = prefs?.getStringList('colorTileIndexes');
     List<String>? paths = prefs?.getStringList('paths');
     List<String>? descriptions = prefs?.getStringList('descriptions');
@@ -30,12 +40,14 @@ Future<void> initAppData() async {
         notes != null) {
       int len = titles.length;
       for (var i = 0; i < len; i++) {
-        arts.add(ArtData(
+        var artData = ArtData(
             titles.elementAt(i),
             int.parse(colorTileIndexes.elementAt(i)),
             paths.elementAt(i),
             descriptions.elementAt(i),
-            notes.elementAt(i)));
+            notes.elementAt(i));
+        await artData.initPalette();
+        arts.add(artData);
       }
     }
   }
@@ -71,6 +83,7 @@ Future<void> pickArts(BuildContext context) async {
   if (result != null) {
     for (var file in result.files) {
       var data = ArtData("", 0, file.path as String, "", "");
+      await data.initPalette();
       Navigator.push(context,
           MaterialPageRoute(builder: (builder) => ArtEditView(artData: data)));
     }

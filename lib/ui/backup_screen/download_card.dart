@@ -39,19 +39,21 @@ class _DownloadCardState extends State<DownloadCard> {
     final filePath = "$appDocDir/${metadata?['title']}.jpeg";
     final file = File(filePath);
     if (await file.exists()) {
-      arts.add(ArtData(
+      var data = ArtData(
           metadata?['title'] as String,
           int.parse(metadata?['colorTileIndex'] as String),
           filePath,
           metadata?['description'] as String,
-          metadata?['note'] as String));
+          metadata?['note'] as String);
+      await data.initPalette();
+      arts.add(data);
       saveAppData();
       showInSnackBar(context, 'Added ${metadata?['title']}.');
       downloadActive = false;
       rebuild();
     } else {
       final downloadTask = ref.writeToFile(file);
-      downloadTask.snapshotEvents.listen((taskSnapshot) {
+      downloadTask.snapshotEvents.listen((taskSnapshot) async {
         switch (taskSnapshot.state) {
           case TaskState.running:
             downloadActive = true;
@@ -60,12 +62,14 @@ class _DownloadCardState extends State<DownloadCard> {
             downloadActive = false;
             break;
           case TaskState.success:
-            arts.add(ArtData(
+            var data = ArtData(
                 metadata?['title'] as String,
                 int.parse(metadata?['colorTileIndex'] as String),
                 filePath,
                 metadata?['description'] as String,
-                metadata?['note'] as String));
+                metadata?['note'] as String);
+            await data.initPalette();
+            arts.add(data);
             saveAppData();
             showInSnackBar(context, 'Downloaded ${metadata?['title']}.');
             downloadActive = false;
@@ -123,13 +127,16 @@ class _DownloadCardState extends State<DownloadCard> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                blurRadius: 10,
-                spreadRadius: 1,
-                offset: Offset(0, 2)),
+              color: Colors.grey.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 2),
+            ),
           ],
         ),
         child: Padding(

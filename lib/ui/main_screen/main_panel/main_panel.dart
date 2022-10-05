@@ -19,7 +19,6 @@ class MainPanelState extends State<MainPanel> {
 
   @override
   void initState() {
-    super.initState();
     scrollController.addListener(() {
       if (scrollController.position.pixels == 0) {
         tabPanelKey.currentState?.setVisible(true);
@@ -27,6 +26,7 @@ class MainPanelState extends State<MainPanel> {
         tabPanelKey.currentState?.setVisible(false);
       }
     });
+    super.initState();
   }
 
   void rebuild() {
@@ -89,7 +89,9 @@ class MainPanelState extends State<MainPanel> {
             children: [
               Lottie.asset('assets/63534-image-preloader.json'),
               Text(
-                guestMode ? "Head over to downloads section and grab some arts" : "Add your Arts to list them here",
+                guestMode
+                    ? "Head over to downloads section and grab some arts"
+                    : "Add your Arts to list them here",
                 style: const TextStyle(
                   fontFamily: "Itim",
                 ),
@@ -99,15 +101,15 @@ class MainPanelState extends State<MainPanel> {
                 height: 50,
                 child: TextButton(
                   onPressed: () async {
-                    if(guestMode) {
+                    if (guestMode) {
                       contentPaneKey.currentState?.setPage(1);
-                    }
-                    else {
+                    } else {
                       await pickArts(context);
                     }
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.cyan.withOpacity(0.3), shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.cyan.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                   ),
                   child: const Image(
@@ -123,6 +125,12 @@ class MainPanelState extends State<MainPanel> {
       );
     }
     return rows;
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -146,12 +154,13 @@ class MainPanelState extends State<MainPanel> {
           children: [
             if (arts.isNotEmpty)
               Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 70),
-                    child: Lottie.asset('assets/107419-boat-animation.json',
-                        width: 150),
-                  )),
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 70),
+                  child: Lottie.asset('assets/107419-boat-animation.json',
+                      width: 150),
+                ),
+              ),
             SingleChildScrollView(
               controller: scrollController,
               child: Column(

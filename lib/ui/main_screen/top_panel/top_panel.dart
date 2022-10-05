@@ -188,7 +188,7 @@ class TopPanelState extends State<TopPanel> {
                           scale: 1.5,
                         ),
                         const Text(
-                          "version 1.4-stable",
+                          "version 1.5-stable",
                           style: TextStyle(
                             fontFamily: "Itim",
                             fontSize: 12,
@@ -209,12 +209,9 @@ class TopPanelState extends State<TopPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       key: const Key('normal'),
       height: 220,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
       child: Stack(
         children: [
           ImageSlideshow(
@@ -233,10 +230,15 @@ class TopPanelState extends State<TopPanel> {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
               child: Container(
                 child: arts.isNotEmpty
-                    ? Lottie.asset('assets/78625-le-petit-chat-cat-noir.json',
-                        width: 70, height: 70)
-                    : Lottie.asset('assets/80394-swing-under-the-tree.json',
-                        width: 70),
+                    ? Lottie.asset(
+                        'assets/78625-le-petit-chat-cat-noir.json',
+                        width: 70,
+                        height: 70,
+                      )
+                    : Lottie.asset(
+                        'assets/80394-swing-under-the-tree.json',
+                        width: 70,
+                      ),
               ),
             ),
           ),

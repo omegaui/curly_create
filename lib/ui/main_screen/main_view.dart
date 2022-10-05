@@ -105,7 +105,8 @@ class MainViewState extends State<MainView> {
                                       icon: ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
                                         child: Lottie.asset(
-                                            'assets/33321-cute-owl.json'),
+                                          'assets/33321-cute-owl.json',
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -144,7 +145,7 @@ class MainViewState extends State<MainView> {
                                 getGreeting(),
                                 style: const TextStyle(
                                   fontFamily: 'Itim',
-                                  fontSize: 20,
+                                  fontSize: 16,
                                 ),
                               ),
                               if (!guestMode)
@@ -153,7 +154,7 @@ class MainViewState extends State<MainView> {
                                   style: TextStyle(
                                     fontFamily: 'Itim',
                                     fontStyle: FontStyle.italic,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                   ),
                                 ),
                             ],
@@ -172,14 +173,15 @@ class MainViewState extends State<MainView> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.4),
-                            blurRadius: 20,
-                            spreadRadius: 20,
+                            blurRadius: 40,
+                            spreadRadius: 40,
                           ),
                         ],
                       ),
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: TopPanel(key: topPanelKey)),
+                        borderRadius: BorderRadius.circular(10),
+                        child: TopPanel(key: topPanelKey),
+                      ),
                     ),
                   ),
                 if (arts.isEmpty) TopPanel(key: topPanelKey),
