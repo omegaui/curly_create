@@ -66,23 +66,37 @@ class _BackupViewState extends State<BackupView> {
                               await setPageIndex(pageIndex == 0 ? 1 : 0);
                             },
                             style: TextButton.styleFrom(
-                              primary: pageIndex == 0
-                                  ? Colors.greenAccent
-                                  : Colors.blueAccent,
-                              backgroundColor: pageIndex == 0
-                                  ? Colors.greenAccent.withOpacity(0.2)
-                                  : Colors.blueAccent.withOpacity(0.2),
+                              foregroundColor: Colors.white,
+                              backgroundColor: const Color(0xFFEFF0F3),
                             ),
-                            child: Text(
-                              pageIndex == 0
-                                  ? "Download Backups"
-                                  : "Create Backups",
-                              style: TextStyle(
-                                fontFamily: "Itim",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color:
-                                    pageIndex == 0 ? Colors.green : Colors.blue,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEFF0F3),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.white,
+                                    blurRadius: 30,
+                                    offset: Offset(-20, -20),
+                                  ),
+                                  BoxShadow(
+                                    color: Color(0xFFA3B1C6),
+                                    blurRadius: 30,
+                                    offset: Offset(20, 20),
+                                  ),
+                                ],
+                              ),
+                              child: Text(
+                                pageIndex == 0
+                                    ? "Download Backups"
+                                    : "Create Backups",
+                                style: TextStyle(
+                                  fontFamily: "Itim",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color:
+                                      Colors.grey.shade700,
+                                ),
                               ),
                             ),
                           ),

@@ -17,8 +17,25 @@ class ActionButtonGroup extends StatelessWidget {
       child: Container(
         width: guestMode ? 60 : 150,
         height: 60,
-        decoration: BoxDecoration(
-          color: guestMode ? Colors.blue.withOpacity(.2) : Colors.blue,
+        decoration: !guestMode
+            ? BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 20,
+                    offset: Offset(0, -5),
+                  ),
+                  BoxShadow(
+                    color: Color(0xFFA3B1C6),
+                    blurRadius: 20,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              )
+            : BoxDecoration(
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
@@ -50,30 +67,28 @@ class ActionButtonGroup extends StatelessWidget {
                     ),
                   ),
                 ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Material(
-                  color: Colors.blue,
-                  child: searchEnabled
-                      ? IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (builder) => const SearchView()));
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                            color: Colors.white,
-                            size: 20,
+              if(searchEnabled)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: Material(
+                    color: Colors.blue,
+                    child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => const SearchView()));
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            splashColor: Colors.white.withOpacity(0.25),
+                            splashRadius: 25,
                           ),
-                          splashColor: Colors.white.withOpacity(0.25),
-                          splashRadius: 25,
-                        )
-                      : Lottie.asset('assets/3315-collection-animation.json',
-                          width: 45, height: 45),
+                  ),
                 ),
-              ),
               if (!guestMode)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(40),

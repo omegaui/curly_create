@@ -22,8 +22,10 @@ class MainPanelState extends State<MainPanel> {
     scrollController.addListener(() {
       if (scrollController.position.pixels == 0) {
         tabPanelKey.currentState?.setVisible(true);
+        topPanelKey.currentState?.setVisible(false);
       } else {
         tabPanelKey.currentState?.setVisible(false);
+        topPanelKey.currentState?.setVisible(true);
       }
     });
     super.initState();
@@ -137,16 +139,9 @@ class MainPanelState extends State<MainPanel> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: arts.isNotEmpty ? const Color(0xFFEFF0F3) : Colors.white,
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.4),
-            blurRadius: 40,
-            spreadRadius: 10,
-          ),
-        ],
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),

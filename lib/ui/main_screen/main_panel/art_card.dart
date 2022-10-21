@@ -36,14 +36,18 @@ class _ArtCardState extends State<ArtCard> {
         width: (MediaQuery.of(context).size.width / 2 - 20),
         height: 220,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFFEFF0F3),
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              blurRadius: 10,
-              spreadRadius: 2,
-              offset: const Offset(0, 4),
+              color: Colors.white,
+              blurRadius: 30,
+              offset: Offset(-20, -20),
+            ),
+            BoxShadow(
+              color: Color(0xFFA3B1C6),
+              blurRadius: 30,
+              offset: Offset(20, 20),
             ),
           ],
         ),
@@ -65,7 +69,25 @@ class _ArtCardState extends State<ArtCard> {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Column(
                   children: [
-                    ArtViewer(artData: widget.artData, compactMode: true),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEFF0F3),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.white,
+                            blurRadius: 30,
+                            offset: Offset(-20, -10),
+                          ),
+                          BoxShadow(
+                            color: Color(0xFFA3B1C6),
+                            blurRadius: 30,
+                            offset: Offset(20, 20),
+                          ),
+                        ],
+                      ),
+                      child: ArtViewer(artData: widget.artData, compactMode: true),
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisSize: MainAxisSize.min,

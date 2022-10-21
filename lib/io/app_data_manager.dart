@@ -2,6 +2,7 @@ import 'package:curly_create/ui/art_edit_screen/art_edit.dart';
 import 'package:curly_create/ui/main_screen/main_view.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_insta/flutter_insta.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +15,9 @@ bool firstStartup = true;
 
 List<ArtData> arts = [];
 
+FlutterInsta flutterInsta = FlutterInsta();
+String? followers;
+
 Future<void> initAppData() async {
   prefs = await SharedPreferences.getInstance();
   loggedIn = prefs?.getBool('logged-in') ?? false;
@@ -22,12 +26,12 @@ Future<void> initAppData() async {
   List<String>? titles = prefs?.getStringList('titles');
   if (titles != null && titles.isNotEmpty) {
     Fluttertoast.showToast(
-      msg: "Optimizing Performance",
+      msg: ">_ Optimizing Performance",
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
+      backgroundColor: Colors.white,
+      textColor: Colors.grey.shade800,
       fontSize: 12.0,
     );
     List<String>? colorTileIndexes = prefs?.getStringList('colorTileIndexes');
@@ -46,12 +50,16 @@ Future<void> initAppData() async {
             paths.elementAt(i),
             descriptions.elementAt(i),
             notes.elementAt(i));
-        await artData.initPalette();
         arts.add(artData);
       }
     }
   }
   rebuildMainView();
+}
+
+Future<void> initFlutterInsta() async {
+  await flutterInsta.getProfileData('curly_create');
+  followers = flutterInsta.followers;
 }
 
 Future<void> saveAppData() async {
@@ -83,7 +91,6 @@ Future<void> pickArts(BuildContext context) async {
   if (result != null) {
     for (var file in result.files) {
       var data = ArtData("", 0, file.path as String, "", "");
-      await data.initPalette();
       Navigator.push(context,
           MaterialPageRoute(builder: (builder) => ArtEditView(artData: data)));
     }

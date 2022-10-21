@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:image_pixels/image_pixels.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -11,7 +10,7 @@ import '../art_edit_screen/art_edit.dart';
 class ArtView extends StatelessWidget {
   final ArtData artData;
 
-  ArtView({Key? key, required this.artData}) : super(key: key);
+  const ArtView({Key? key, required this.artData}) : super(key: key);
 
   Future<void> share() async {
     await Share.shareFiles([artData.path], text: "Share ${artData.title} to");
@@ -24,25 +23,25 @@ class ArtView extends StatelessWidget {
         body: Container(
           height: MediaQuery.of(context).size.height,
           color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ImagePixels(
-                    imageProvider: artData.image,
-                    builder: (context, img) {
-                      Color dx = img.pixelColorAt!(0,0);
-                      Color color = artData.paletteGenerator.darkVibrantColor?.color as Color;
-                      return Hero(
+          child: Stack(
+            children: [
+              Container(
+                color: Colors.red,
+                height: MediaQuery.of(context).size.height,
+                child: Image(
+                  image: artData.getTileWaveData(),
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Hero(
                         tag: 'art-${arts.indexOf(artData)}',
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 450,
-                          decoration: BoxDecoration(
-                            color: dx,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
+                        child: SizedBox(
+                          height: 400,
                           child: Stack(
                             children: [
                               Align(
@@ -51,11 +50,50 @@ class ArtView extends StatelessWidget {
                                   padding: const EdgeInsets.all(30.0),
                                   child: SizedBox(
                                     width: MediaQuery.of(context).size.width,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Image(
-                                        image: artData.image,
-                                        fit: BoxFit.fitWidth,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (builder) => Scaffold(
+                                                    body: Container(
+                                                      color: Colors.white,
+                                                      child: InteractiveViewer(
+                                                        panEnabled: true,
+                                                        child: Image(
+                                                          image: artData.image,
+                                                          fit: BoxFit.fitWidth,
+                                                          height: double.infinity,
+                                                          width: double.infinity,
+                                                          alignment: Alignment.center,
+                                                        ),
+                                                      ),
+                                                    ))));
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFEFF0F3),
+                                          borderRadius: BorderRadius.circular(30),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius: 40,
+                                              offset: Offset(-20, -20),
+                                            ),
+                                            BoxShadow(
+                                              color: Color(0xFFA3B1C6),
+                                              blurRadius: 40,
+                                              offset: Offset(20, 20),
+                                            ),
+                                          ],
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: Image(
+                                            image: artData.image,
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -65,19 +103,37 @@ class ArtView extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_back,
-                                          color: artData.paletteGenerator.lightMutedColor?.color,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFEFF0F3),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          blurRadius: 20,
+                                          offset: Offset(-5, -5),
                                         ),
-                                        splashColor: color,
+                                        BoxShadow(
+                                          color: Color(0xFFA3B1C6),
+                                          blurRadius: 20,
+                                          offset: Offset(5, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Material(
+                                        color: const Color(0xFFEFF0F3),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_back,
+                                            color: Colors.grey.shade800,
+                                          ),
+                                          splashColor: Colors.grey.shade700,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -87,21 +143,37 @@ class ArtView extends StatelessWidget {
                                 alignment: Alignment.bottomLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Material(
-                                      color: artData.paletteGenerator.mutedColor?.color.withOpacity(0.2),
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ArtEditView(artData: artData)));
-                                        },
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: 16,
-                                          color: artData.paletteGenerator.lightMutedColor?.color,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFEFF0F3),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          blurRadius: 20,
+                                          offset: Offset(-5, -5),
                                         ),
-                                        splashColor: color,
-                                        splashRadius: 20,
+                                        BoxShadow(
+                                          color: Color(0xFFA3B1C6),
+                                          blurRadius: 20,
+                                          offset: Offset(5, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Material(
+                                        color: const Color(0xFFEFF0F3),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ArtEditView(artData: artData)));
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            size: 28,
+                                            color: Colors.green,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -111,21 +183,37 @@ class ArtView extends StatelessWidget {
                                 alignment: Alignment.topRight,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: IconButton(
-                                        onPressed: () async {
-                                          await share();
-                                        },
-                                        icon: Icon(
-                                          Icons.share,
-                                          size: 16,
-                                          color: artData.paletteGenerator.lightMutedColor?.color,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFEFF0F3),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          blurRadius: 20,
+                                          offset: Offset(-5, -5),
                                         ),
-                                        splashColor: color,
-                                        splashRadius: 20,
+                                        BoxShadow(
+                                          color: Color(0xFFA3B1C6),
+                                          blurRadius: 20,
+                                          offset: Offset(5, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Material(
+                                        color: const Color(0xFFEFF0F3),
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            await share();
+                                          },
+                                          icon: const Icon(
+                                            Icons.share,
+                                            size: 28,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -134,59 +222,59 @@ class ArtView extends StatelessWidget {
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    Text(
-                      artData.title,
-                      style: const TextStyle(
-                        fontFamily: 'Itim',
-                        fontSize: 32,
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    SizedBox(
-                      height: 16,
-                      child: Text(
-                        artData.description.isEmpty
-                            ? "No Description Provided"
-                            : artData.description,
-                        style: const TextStyle(
-                          fontFamily: "Itim",
+                    Row(
+                      children: [
+                        const SizedBox(width: 20),
+                        Text(
+                          artData.title,
+                          style: const TextStyle(
+                            fontFamily: 'Itim',
+                            fontSize: 32,
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const SizedBox(width: 20),
+                        SizedBox(
+                          height: 16,
+                          child: Text(
+                            artData.description.isEmpty
+                                ? "No Description Provided"
+                                : artData.description,
+                            style: const TextStyle(
+                              fontFamily: "Itim",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const SizedBox(width: 20),
+                        Text(
+                          artData.note.isEmpty
+                              ? "No Notes Attached"
+                              : artData.note,
+                          style: const TextStyle(
+                            fontFamily: "Itim",
+                          ),
+                        ),
+                      ],
+                    ),
+                    Lottie.asset(
+                      "assets/17720-landscape.json",
+                      height: 155,
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    Text(
-                      artData.note.isEmpty
-                          ? "No Notes Attached"
-                          : artData.note,
-                      style: const TextStyle(
-                        fontFamily: "Itim",
-                      ),
-                    ),
-                  ],
-                ),
-                Lottie.asset(
-                  "assets/17720-landscape.json",
-                  height: 155,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

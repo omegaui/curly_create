@@ -45,7 +45,6 @@ class _DownloadCardState extends State<DownloadCard> {
           filePath,
           metadata?['description'] as String,
           metadata?['note'] as String);
-      await data.initPalette();
       arts.add(data);
       saveAppData();
       showInSnackBar(context, 'Added ${metadata?['title']}.');
@@ -68,7 +67,6 @@ class _DownloadCardState extends State<DownloadCard> {
                 filePath,
                 metadata?['description'] as String,
                 metadata?['note'] as String);
-            await data.initPalette();
             arts.add(data);
             saveAppData();
             showInSnackBar(context, 'Downloaded ${metadata?['title']}.');
@@ -106,16 +104,6 @@ class _DownloadCardState extends State<DownloadCard> {
 
   void rebuild() {
     setState(() {});
-  }
-
-  String getRandomArtTrailingLottie() {
-    int x = Random().nextInt(3);
-    if (x == 0) {
-      return "87856-color-blast.json";
-    } else if (x == 1) {
-      return "87422-color-wheel.json";
-    }
-    return "70143-gold-star.json";
   }
 
   @override
@@ -156,8 +144,6 @@ class _DownloadCardState extends State<DownloadCard> {
                   children: [
                     if (downloadActive)
                       Lottie.asset('assets/7572-download.json'),
-                    if (!downloadActive)
-                      Lottie.asset('assets/${getRandomArtTrailingLottie()}'),
                     if (downloadActive)
                       AnimatedTextKit(
                         animatedTexts: [
@@ -235,15 +221,15 @@ class _DownloadCardState extends State<DownloadCard> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(60),
                               child: Material(
-                                color: Colors.pinkAccent.withOpacity(0.2),
+                                color: Colors.white,
                                 child: IconButton(
                                   onPressed: () {
                                     startDownload(metadata.customMetadata);
                                   },
                                   tooltip: "Click to start download",
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.file_download_rounded,
-                                    color: Colors.pink,
+                                    color: Colors.grey.shade700,
                                   ),
                                   splashRadius: 25,
                                   iconSize: 20,

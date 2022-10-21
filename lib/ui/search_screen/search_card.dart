@@ -33,7 +33,7 @@ class SearchCard extends StatelessWidget {
                   height: 40,
                   child: FadeInImage(
                     placeholder: illustration,
-                    image: FileImage(File(artData.path)),
+                    image: artData.image,
                     fit: BoxFit.fitWidth,
                   ),
                 ),

@@ -38,6 +38,7 @@ class TabButton extends StatelessWidget {
               style: TextStyle(
                 fontFamily: "Itim",
                 color: active ? Colors.blue : Colors.black,
+                fontSize: 12,
               ),
             ),
           ],

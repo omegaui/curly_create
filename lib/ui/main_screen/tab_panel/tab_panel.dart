@@ -60,14 +60,14 @@ class TabPanelState extends State<TabPanel> {
                         });
                       },
                     ),
-                    ActionButtonGroup(searchEnabled: arts.isNotEmpty),
+                    if(arts.isNotEmpty)
+                      ActionButtonGroup(searchEnabled: arts.isNotEmpty),
                     TabButton(
                       active: contentPaneKey.currentState?.viewIndex == 1,
                       iconData: Icons.backup_outlined,
                       title: guestMode ? "downloads" : "backups",
                       callback: () {
                         setState(() {
-                          backupPanelKey.currentState?.rebuild();
                           contentPaneKey.currentState?.setPage(1);
                         });
                       },

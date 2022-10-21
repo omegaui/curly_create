@@ -43,10 +43,11 @@ void showInfoDialog(BuildContext context) {
                       ),
                       Logo(scale: 0.5),
                       Text(
-                        "v1.5-stable",
+                        "v1.6-stable",
                         style: TextStyle(
                           fontFamily: "Itim",
                           color: Colors.grey.shade600,
+                          fontSize: 12,
                         ),
                       ),
                       const LottieController(

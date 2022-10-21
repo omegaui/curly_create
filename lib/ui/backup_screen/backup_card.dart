@@ -6,10 +6,8 @@ import 'package:curly_create/io/art_data.dart';
 import 'package:curly_create/io/backups.dart';
 import 'package:curly_create/io/resource_manager.dart';
 import 'package:curly_create/ui/art_view_screen/art_view.dart';
-import 'package:curly_create/ui/backup_screen/backup_control_button.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class BackupCard extends StatefulWidget {
   final ArtData artData;

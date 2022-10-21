@@ -21,8 +21,20 @@ class TopPanel extends StatefulWidget {
 }
 
 class TopPanelState extends State<TopPanel> {
+
+  bool hide = false;
+
   void rebuild() {
     setState(() {});
+  }
+
+  void setVisible(bool value){
+    if(hide == value){
+      return;
+    }
+    setState(() {
+      hide = value;
+    });
   }
 
   List<Widget> _buildImageSlideShow() {
@@ -188,7 +200,7 @@ class TopPanelState extends State<TopPanel> {
                           scale: 1.5,
                         ),
                         const Text(
-                          "version 1.5-stable",
+                          "version 1.6-stable",
                           style: TextStyle(
                             fontFamily: "Itim",
                             fontSize: 12,
@@ -209,9 +221,10 @@ class TopPanelState extends State<TopPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
       key: const Key('normal'),
-      height: 220,
+      height: hide ? 0 : 220,
       child: Stack(
         children: [
           ImageSlideshow(
