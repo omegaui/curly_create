@@ -87,16 +87,21 @@ class _BackupCardState extends State<BackupCard> {
         },
         child: Container(
           height: 50,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
+          decoration: const BoxDecoration(
+            color: Color(0xFFEFF0F3),
+            borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  blurRadius: 10,
-                  spreadRadius: 1,
-                  offset: Offset(0, 2)),
+                color: Color(0xFFEFF0F3),
+                blurRadius: 30,
+                offset: Offset(-20, -10),
+              ),
+              BoxShadow(
+                color: Color(0xFFA3B1C6),
+                blurRadius: 30,
+                offset: Offset(20, 20),
+              ),
             ],
           ),
           child: Padding(

@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'art_data.dart';
 
+const String version = "1.7";
+
 SharedPreferences? prefs;
 bool loggedIn = false;
 bool guestMode = false;

@@ -65,7 +65,7 @@ class App extends StatelessWidget {
                 const SizedBox(height: 120),
                 Logo(scale: 1.2),
                 Text(
-                  "version 1.6-stable",
+                  "version $version-stable",
                   style: TextStyle(
                     fontFamily: "Itim",
                     color: Colors.grey.shade700,

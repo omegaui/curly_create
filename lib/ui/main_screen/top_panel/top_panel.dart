@@ -45,6 +45,7 @@ class TopPanelState extends State<TopPanel> {
     if (tempArts.isNotEmpty) {
       for (var i = 0; i < tempArts.length && i <= 3; i++) {
         images.add(GestureDetector(
+          onLongPress: () => tempArts.elementAt(i).showActionSheet(context),
           onTap: () {
             Navigator.push(
                 context,

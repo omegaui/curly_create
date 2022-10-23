@@ -36,7 +36,7 @@ class StartScreen extends StatelessWidget {
                     const SizedBox(height: 50),
                     Logo(scale: 1.5),
                     const Text(
-                      "version 1.6-stable",
+                      "version $version-stable",
                       style: TextStyle(
                         fontFamily: "Itim",
                         fontSize: 12,

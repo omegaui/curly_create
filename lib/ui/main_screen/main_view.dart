@@ -1,6 +1,9 @@
 import 'package:curly_create/io/authentication.dart';
+import 'package:curly_create/io/resource_manager.dart';
 import 'package:curly_create/main.dart';
 import 'package:curly_create/ui/welcome_screen/start_screen.dart';
+import 'package:curly_create/widgets/logo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,6 +44,8 @@ String getGreeting() {
 }
 
 class MainViewState extends State<MainView> {
+  bool pressed = false;
+
   void rebuild() {
     setState(() {});
   }
@@ -98,14 +103,192 @@ class MainViewState extends State<MainView> {
                                   borderRadius: BorderRadius.circular(30),
                                   child: Material(
                                     color: Colors.transparent,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        showInfoDialog(context);
+                                    child: GestureDetector(
+                                      onLongPress: () {
+                                        showCupertinoModalPopup(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                              color: Colors.transparent,
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 120,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20)),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      20.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 100,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            const Image(
+                                                              image: deadpool,
+                                                              width: 48,
+                                                              height: 48,
+                                                            ),
+                                                            Text(
+                                                              "Yours only enemy",
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    "Itim",
+                                                                fontSize: 12,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade700,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                          child: VerticalDivider(
+                                                              thickness: 2,
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.7))),
+                                                      SizedBox(
+                                                        width: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Logo(scale: 0.7),
+                                                            Text(
+                                                              "version $version",
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    "Itim",
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade700,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                          child: VerticalDivider(
+                                                              thickness: 2,
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.7))),
+                                                      SizedBox(
+                                                        width: 100,
+                                                        child: Center(
+                                                          child: StatefulBuilder(
+                                                              builder: (context,
+                                                                  setState) {
+                                                            return GestureDetector(
+                                                              onTap: () async {
+                                                                Uri uri = Uri.parse("https://github.com/omegaui/curly_create");
+                                                                if(await canLaunchUrl(uri)){
+                                                                  launchUrl(uri);
+                                                                }
+                                                                setState(() {
+                                                                  pressed =
+                                                                      true;
+                                                                });
+                                                                Future.delayed(
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                    () {
+                                                                  setState(() {
+                                                                    pressed =
+                                                                        false;
+                                                                  });
+                                                                });
+                                                              },
+                                                              child:
+                                                                  AnimatedContainer(
+                                                                duration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            250),
+                                                                width: 50,
+                                                                height: 50,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xFFEFF0F3),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  boxShadow:
+                                                                      pressed
+                                                                          ? []
+                                                                          : [
+                                                                              const BoxShadow(
+                                                                                color: Colors.white,
+                                                                                blurRadius: 30,
+                                                                                offset: Offset(-20, -10),
+                                                                              ),
+                                                                              const BoxShadow(
+                                                                                color: Color(0xFFA3B1C6),
+                                                                                blurRadius: 30,
+                                                                                offset: Offset(20, 20),
+                                                                              ),
+                                                                            ],
+                                                                ),
+                                                                child:
+                                                                    const Center(
+                                                                  child: Image(
+                                                                    image:
+                                                                        github,
+                                                                    width: 32,
+                                                                    height: 32,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
-                                      icon: ClipRRect(
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: Lottie.asset(
-                                          'assets/33321-cute-owl.json',
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showInfoDialog(context);
+                                        },
+                                        icon: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Lottie.asset(
+                                            'assets/33321-cute-owl.json',
+                                          ),
                                         ),
                                       ),
                                     ),

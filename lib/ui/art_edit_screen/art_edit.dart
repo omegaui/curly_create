@@ -35,9 +35,12 @@ class ArtEditView extends StatelessWidget {
               const SizedBox(height: 30),
               const TopPanel(),
               const SizedBox(height: 10),
-              Hero(
-                tag: 'art-${arts.indexOf(artData)}',
-                child: ArtViewer(artData: artData, compactMode: false),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Hero(
+                  tag: 'art-${arts.indexOf(artData)}',
+                  child: AspectRatio(aspectRatio: 16 / 9, child: ArtViewer(artData: artData, compactMode: false)),
+                ),
               ),
               const SizedBox(height: 10),
               TextField(

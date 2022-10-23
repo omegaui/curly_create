@@ -1,3 +1,4 @@
+import 'package:curly_create/io/app_data_manager.dart';
 import 'package:curly_create/io/resource_manager.dart';
 import 'package:curly_create/ui/welcome_screen/start_screen.dart';
 import 'package:curly_create/widgets/logo.dart';
@@ -43,7 +44,7 @@ void showInfoDialog(BuildContext context) {
                       ),
                       Logo(scale: 0.5),
                       Text(
-                        "v1.6-stable",
+                        "v$version-stable",
                         style: TextStyle(
                           fontFamily: "Itim",
                           color: Colors.grey.shade600,

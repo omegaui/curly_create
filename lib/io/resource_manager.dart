@@ -23,3 +23,5 @@ const AssetImage vectorWave3 = AssetImage('assets/vector-wave-back3.jpg');
 const AssetImage vectorWave4 = AssetImage('assets/vector-wave-back4.jpg');
 const AssetImage network = AssetImage('assets/network-48.png');
 const AssetImage loading = AssetImage('assets/loading-48.png');
+const AssetImage deadpool = AssetImage('assets/deadpool.png');
+const AssetImage github = AssetImage('assets/github.png');

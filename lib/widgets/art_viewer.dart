@@ -46,7 +46,7 @@ class ArtViewer extends StatelessWidget {
           child: FadeInImage(
             placeholder: illustration,
             image: artData.image,
-            fit: BoxFit.fitWidth,
+            fit: compactMode ? BoxFit.cover : BoxFit.fitWidth,
           ),
         ),
       ),

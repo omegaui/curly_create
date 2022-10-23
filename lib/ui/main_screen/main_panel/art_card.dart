@@ -26,6 +26,7 @@ class _ArtCardState extends State<ArtCard> {
   Widget build(BuildContext context) {
     bool onRemote = isPresentOnRemoteServer(widget.artData);
     return GestureDetector(
+      onLongPress: () => widget.artData.showActionSheet(context),
       onTap: () {
         Navigator.push(
             context,
@@ -36,11 +37,11 @@ class _ArtCardState extends State<ArtCard> {
         width: (MediaQuery.of(context).size.width / 2 - 20),
         height: 220,
         decoration: BoxDecoration(
-          color: const Color(0xFFEFF0F3),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
-              color: Colors.white,
+              color: Color(0xFFEFF0F3),
               blurRadius: 30,
               offset: Offset(-20, -20),
             ),
