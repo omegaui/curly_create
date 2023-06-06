@@ -1,5 +1,4 @@
 import 'package:curly_create/main.dart';
-import 'package:curly_create/ui/backup_screen/backup_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../io/app_data_manager.dart';
@@ -60,7 +59,7 @@ class TabPanelState extends State<TabPanel> {
                         });
                       },
                     ),
-                    if(arts.isNotEmpty)
+                    if (arts.isNotEmpty)
                       ActionButtonGroup(searchEnabled: arts.isNotEmpty),
                     TabButton(
                       active: contentPaneKey.currentState?.viewIndex == 1,

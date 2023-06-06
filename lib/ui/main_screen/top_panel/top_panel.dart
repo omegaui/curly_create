@@ -21,15 +21,14 @@ class TopPanel extends StatefulWidget {
 }
 
 class TopPanelState extends State<TopPanel> {
-
   bool hide = false;
 
   void rebuild() {
     setState(() {});
   }
 
-  void setVisible(bool value){
-    if(hide == value){
+  void setVisible(bool value) {
+    if (hide == value) {
       return;
     }
     setState(() {
@@ -201,7 +200,7 @@ class TopPanelState extends State<TopPanel> {
                           scale: 1.5,
                         ),
                         const Text(
-                          "version 1.6-stable",
+                          "version $version-stable",
                           style: TextStyle(
                             fontFamily: "Itim",
                             fontSize: 12,

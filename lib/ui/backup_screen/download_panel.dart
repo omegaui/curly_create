@@ -2,7 +2,6 @@
 
 import 'package:curly_create/io/art_data.dart';
 import 'package:curly_create/io/backups.dart';
-import 'package:curly_create/ui/backup_screen/backup_view.dart';
 import 'package:curly_create/ui/backup_screen/download_card.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +11,12 @@ import '../main_screen/main_view.dart';
 
 ListResult? remoteArts;
 List<String> remoteArtNames = [];
-
-bool initDownloadView = true;
+bool loadedRemotes = false;
 
 Future<void> loadAll() async {
+  if (loadedRemotes) {
+    return;
+  }
   remoteArtNames.clear();
   remoteArts = await imagesRef.list();
   bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
@@ -25,8 +26,8 @@ Future<void> loadAll() async {
       remoteArtNames.add(metadata.customMetadata?['title'] as String);
     }
   }
-  initDownloadView = false;
-  downloadPanelKey.currentState?.rebuild();
+  print(remoteArtNames.length);
+  loadedRemotes = true;
   mainPanelKey.currentState?.rebuild();
 }
 
@@ -51,7 +52,6 @@ class DownloadPanelState extends State<DownloadPanel> {
   @override
   void initState() {
     super.initState();
-    loadAll();
     scrollController.addListener(() {
       if (scrollController.position.pixels == 0) {
         tabPanelKey.currentState?.setVisible(true);
@@ -62,7 +62,9 @@ class DownloadPanelState extends State<DownloadPanel> {
   }
 
   void rebuild() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Alignment getOwlAlignment() {
@@ -118,8 +120,11 @@ class DownloadPanelState extends State<DownloadPanel> {
     return Expanded(
       child: Container(
         color: Colors.white,
-        child: initDownloadView
-            ? Column(
+        child: FutureBuilder(
+          future: loadAll(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Lottie.asset(
@@ -132,49 +137,52 @@ class DownloadPanelState extends State<DownloadPanel> {
                     ),
                   ),
                 ],
-              )
-            : Stack(
-                children: [
-                  if (getAnimationVisible())
-                    Align(
-                        alignment: getOwlAlignment(),
-                        child: Padding(
-                            padding: getOwlPadding(),
-                            child: Lottie.asset('assets/90530-owls.json',
-                                width: 200))),
-                  if (getAnimationVisible())
-                    Align(
-                        alignment: getPlaneAlignment(),
-                        child: Padding(
-                          padding: getPlanePadding(),
-                          child: Lottie.asset(
-                              'assets/9844-loading-40-paperplane.json',
-                              width: 250),
-                        )),
-                  SingleChildScrollView(
-                    controller: scrollController,
-                    child: remoteArts != null && !empty
-                        ? Column(
-                            children: remoteArts?.items
-                                .map((e) => DownloadCard(reference: e))
-                                .toList() as List<DownloadCard>,
-                          )
-                        : Column(
-                            children: [
-                              Text(
-                                'No Backups Available to download',
-                                style: TextStyle(
-                                  fontFamily: 'Itim',
-                                  color: Colors.grey.shade800,
-                                ),
+              );
+            }
+            return Stack(
+              children: [
+                if (getAnimationVisible())
+                  Align(
+                      alignment: getOwlAlignment(),
+                      child: Padding(
+                          padding: getOwlPadding(),
+                          child: Lottie.asset('assets/90530-owls.json',
+                              width: 200))),
+                if (getAnimationVisible())
+                  Align(
+                      alignment: getPlaneAlignment(),
+                      child: Padding(
+                        padding: getPlanePadding(),
+                        child: Lottie.asset(
+                            'assets/9844-loading-40-paperplane.json',
+                            width: 250),
+                      )),
+                SingleChildScrollView(
+                  controller: scrollController,
+                  child: remoteArts != null && !empty
+                      ? Column(
+                          children: remoteArts?.items
+                              .map((e) => DownloadCard(reference: e))
+                              .toList() as List<DownloadCard>,
+                        )
+                      : Column(
+                          children: [
+                            Text(
+                              'No Backups Available to download',
+                              style: TextStyle(
+                                fontFamily: 'Itim',
+                                color: Colors.grey.shade800,
                               ),
-                              Lottie.asset(
-                                  'assets/12955-no-internet-connection-empty-state.json'),
-                            ],
-                          ),
-                  ),
-                ],
-              ),
+                            ),
+                            Lottie.asset(
+                                'assets/12955-no-internet-connection-empty-state.json'),
+                          ],
+                        ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

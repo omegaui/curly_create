@@ -1,13 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:curly_create/io/art_data.dart';
-import 'package:curly_create/ui/art_edit_screen/tile_wave_picker.dart';
 import 'package:curly_create/ui/backup_screen/download_panel.dart';
 import 'package:curly_create/widgets/art_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
-import '../../../io/app_data_manager.dart';
 import '../../../io/resource_manager.dart';
 import '../../art_view_screen/art_view.dart';
 
@@ -21,7 +17,6 @@ class ArtCard extends StatefulWidget {
 }
 
 class _ArtCardState extends State<ArtCard> {
-
   @override
   Widget build(BuildContext context) {
     bool onRemote = isPresentOnRemoteServer(widget.artData);
@@ -87,7 +82,8 @@ class _ArtCardState extends State<ArtCard> {
                           ),
                         ],
                       ),
-                      child: ArtViewer(artData: widget.artData, compactMode: true),
+                      child:
+                          ArtViewer(artData: widget.artData, compactMode: true),
                     ),
                     const SizedBox(height: 20),
                     Row(
@@ -110,13 +106,17 @@ class _ArtCardState extends State<ArtCard> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  if(initDownloadView)
+                  if (!loadedRemotes)
                     const Image(image: loading, width: 20, height: 20),
-                  if(!initDownloadView)
+                  if (loadedRemotes)
                     CachedNetworkImage(
-                      imageUrl: onRemote ? 'https://img.icons8.com/fluency/48/000000/instagram-check-mark.png' : 'https://img.icons8.com/external-dreamcreateicons-outline-color-dreamcreateicons/48/000000/external-alert-internet-security-dreamcreateicons-outline-color-dreamcreateicons-2.png',
-                      placeholder: (context, url) => const Image(image: loading, width: 20, height: 20),
-                      errorWidget: (context, url, error) => const Image(image: network, width: 20, height: 20),
+                      imageUrl: onRemote
+                          ? 'https://img.icons8.com/fluency/48/000000/instagram-check-mark.png'
+                          : 'https://img.icons8.com/external-dreamcreateicons-outline-color-dreamcreateicons/48/000000/external-alert-internet-security-dreamcreateicons-outline-color-dreamcreateicons-2.png',
+                      placeholder: (context, url) =>
+                          const Image(image: loading, width: 20, height: 20),
+                      errorWidget: (context, url, error) =>
+                          const Image(image: network, width: 20, height: 20),
                       width: 20,
                       height: 20,
                     ),
@@ -129,6 +129,5 @@ class _ArtCardState extends State<ArtCard> {
     );
   }
 }
-
 
 //97952-loading-animation-blue.json

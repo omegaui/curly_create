@@ -27,6 +27,9 @@ late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Permission.manageExternalStorage.request();
+  await Permission.storage.request();
+  await Permission.camera.request();
   cameras = await availableCameras();
   runApp(const App());
 }
@@ -76,10 +79,12 @@ class App extends StatelessWidget {
                 FutureBuilder(
                   future: initFlutterInsta(),
                   builder: (context, snapshot) {
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return Lottie.asset('assets/97952-loading-animation-blue.json', width: 60, height: 60);
-                    }
-                    else if(snapshot.hasError && followers == null){
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Lottie.asset(
+                          'assets/97952-loading-animation-blue.json',
+                          width: 60,
+                          height: 60);
+                    } else if (snapshot.hasError && followers == null) {
                       return Column(
                         children: [
                           Text(
@@ -90,7 +95,8 @@ class App extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
-                          Lottie.asset('assets/77495-time-loading.json', width: 80),
+                          Lottie.asset('assets/77495-time-loading.json',
+                              width: 80),
                           Text(
                             "Come back later!",
                             style: TextStyle(
@@ -126,7 +132,7 @@ class App extends StatelessWidget {
                             ),
                           ],
                         ),
-                        if(followers != null && snapshot.hasError)
+                        if (followers != null && snapshot.hasError)
                           Text(
                             "(last fetched count)",
                             style: TextStyle(
@@ -162,13 +168,13 @@ class ContentPaneState extends State<ContentPane> {
   StreamSubscription<ConnectivityResult>? subscription;
 
   void setPage(int index) {
-    if(viewIndex == index){
+    if (viewIndex == index) {
       return;
     }
     setState(() {
       viewIndex = index;
     });
-    if(viewIndex == 1){
+    if (viewIndex == 1) {
       backupPanelKey.currentState?.rebuild();
     }
   }
@@ -191,9 +197,6 @@ class ContentPaneState extends State<ContentPane> {
         statusBarIconBrightness: Brightness.dark,
       ));
 
-      await Permission.storage.request();
-      await Permission.camera.request();
-
       firebaseApp = await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
@@ -208,7 +211,7 @@ class ContentPaneState extends State<ContentPane> {
       await loadAll();
 
       subscription = Connectivity().onConnectivityChanged.listen((event) {
-        if(event != ConnectivityResult.none) {
+        if (event != ConnectivityResult.none) {
           mainViewKey.currentState?.rebuild();
         }
       });

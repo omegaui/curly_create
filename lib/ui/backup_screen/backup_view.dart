@@ -13,11 +13,17 @@ class BackupView extends StatefulWidget {
   const BackupView({Key? key}) : super(key: key);
 
   @override
-  State<BackupView> createState() => _BackupViewState();
+  State<BackupView> createState() => BackupViewState();
 }
 
-class _BackupViewState extends State<BackupView> {
+class BackupViewState extends State<BackupView> {
   int pageIndex = 0;
+
+  void rebuild() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   Future<void> setPageIndex(int index) async {
     setState(() {
@@ -51,7 +57,7 @@ class _BackupViewState extends State<BackupView> {
                   Text(
                     pageIndex == 0 && !guestMode
                         ? "Backups"
-                        : "${remoteArtNames.length} Arts",
+                        : "${loadedRemotes ? remoteArts!.items.length : ""} Arts",
                     style: TextStyle(
                       fontFamily: 'Itim',
                       fontSize: 24,
@@ -65,6 +71,9 @@ class _BackupViewState extends State<BackupView> {
                         if (!guestMode)
                           TextButton(
                             onPressed: () async {
+                              if (pageIndex == 1) {
+                                await loadAll();
+                              }
                               await setPageIndex(pageIndex == 0 ? 1 : 0);
                             },
                             style: TextButton.styleFrom(
