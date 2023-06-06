@@ -8,8 +8,10 @@ import 'package:lottie/lottie.dart';
 void showInfoDialog(BuildContext context) {
   showDialog(
     context: context,
+    barrierColor: Colors.transparent,
     builder: (context) => Dialog(
       backgroundColor: Colors.transparent,
+      shadowColor: Colors.grey.withOpacity(0.3),
       child: SizedBox(
         height: 300,
         child: Stack(
@@ -22,14 +24,7 @@ void showInfoDialog(BuildContext context) {
                   height: 250,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.25),
-                        blurRadius: 4,
-                        spreadRadius: 4,
-                      ),
-                    ],
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

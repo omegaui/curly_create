@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'art_data.dart';
 
-const String version = "1.7";
+const String version = "1.8";
 
 SharedPreferences? prefs;
 bool loggedIn = false;

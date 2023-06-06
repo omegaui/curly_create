@@ -49,7 +49,9 @@ class _BackupViewState extends State<BackupView> {
                         width: 50),
                   const SizedBox(width: 20),
                   Text(
-                    pageIndex == 0 && !guestMode ? "Backups" : "Downloads",
+                    pageIndex == 0 && !guestMode
+                        ? "Backups"
+                        : "${remoteArtNames.length} Arts",
                     style: TextStyle(
                       fontFamily: 'Itim',
                       fontSize: 24,
@@ -94,8 +96,7 @@ class _BackupViewState extends State<BackupView> {
                                   fontFamily: "Itim",
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
-                                  color:
-                                      Colors.grey.shade700,
+                                  color: Colors.grey.shade700,
                                 ),
                               ),
                             ),

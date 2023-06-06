@@ -16,10 +16,11 @@ List<String> remoteArtNames = [];
 bool initDownloadView = true;
 
 Future<void> loadAll() async {
+  remoteArtNames.clear();
   remoteArts = await imagesRef.list();
   bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
   if (!empty) {
-    for(var ref in (remoteArts?.items as List<Reference>)){
+    for (var ref in (remoteArts?.items as List<Reference>)) {
       FullMetadata metadata = await ref.getMetadata();
       remoteArtNames.add(metadata.customMetadata?['title'] as String);
     }
@@ -29,7 +30,7 @@ Future<void> loadAll() async {
   mainPanelKey.currentState?.rebuild();
 }
 
-bool isPresentOnRemoteServer(ArtData artData){
+bool isPresentOnRemoteServer(ArtData artData) {
   bool empty = remoteArts == null ? true : remoteArts?.items.isEmpty as bool;
   if (!empty) {
     return remoteArtNames.contains(artData.title);
